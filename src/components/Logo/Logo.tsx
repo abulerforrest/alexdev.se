@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import { observer } from "mobx-react";
 
 import styled from "styled-components";
@@ -60,15 +60,12 @@ interface ILogoProps {
 	logoState: LogoState
 }
 
-@observer
-class Logo extends Component<ILogoProps> {
-
-	renderLogo() : React.ReactNode {
+const Logo = observer(({logoState}: ILogoProps) => {
 
 		let appendClass: string = "";
 
-		if(this.props.logoState === "dimmed") {
-			appendClass = this.props.logoState;
+		if(logoState === "dimmed") {
+			appendClass = logoState;
 		}
 
 		return (
@@ -90,13 +87,6 @@ class Logo extends Component<ILogoProps> {
 			</LogoContainer>
 		);
 	}
-
-	render(): React.ReactNode {
-		return (
-			this.renderLogo()
-		);
-	}
-
-}
+);
 
 export default Logo;

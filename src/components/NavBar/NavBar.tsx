@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import { useRoutes, A as Link } from "hookrouter";
+import { A as Link } from "hookrouter";
 
 import styled from "styled-components";
 
@@ -10,16 +10,30 @@ import {
 	INavBarController
 } from "../../interfaces/NavBarController";
 
+import { IResumePageController } from "../../interfaces/ResumePageController";
+
 export type NavBarState = "default" | "revealed" | "collapsed";
 
 const MenuItem = styled.li`
-
+	margin-right: 40px;
 `;
 
 const UnderLine = styled.div`
 	margin-top: 5px;
 	border-bottom: ${(props) => props.theme.borderBottomIdle};
 `;
+
+const Root = styled.div`
+	min-width: 620px;
+	margin-top: 30px;
+	margin-right: 105px;
+	padding-left: 200px;
+	display: flex;
+	align-items: flex-start;
+	text-transform: uppercase;
+	justify-content: space-evenly;
+`;
+
 
 const DropDown = styled.ul`
 	padding: 0;
@@ -76,13 +90,9 @@ const SubMenuItem = styled.li`
 
 const Nav = styled.ul`
 	display: none;
-	min-width: 620px;
-	margin-top: 40px;
-	margin-right: 95px;
-	align-items: center;
+	right: 200px;	
 	list-style-type: none;
-	text-transform: uppercase;
-	justify-content: space-evenly;
+	position: absolute;
 	color: ${(props) => props.theme.primaryColor};
 
 	li:hover ul {
@@ -109,21 +119,30 @@ const Nav = styled.ul`
 
 interface INavBarProps {
 	controller: INavBarController
+	parentController: IResumePageController
 }
 
 @observer
 class NavBar extends Component<INavBarProps> {
 
 	private readonly controller: INavBarController;
+	private readonly parentController: IResumePageController;
 
 	constructor(props: any) {
 		super(props);
 
 		this.controller = props.controller;
+		this.parentController = props.parentController;
 	}
 
-	handleLinkClick = () => {
+	handleLinkClick = (page?: string) : void => {
+
 		this.controller.hideNav();
+
+		if(page) {
+			this.parentController.setCurrentPage(page);
+		}
+
 	}
 
 	renderNavBar() : React.ReactNode {
@@ -137,6 +156,7 @@ class NavBar extends Component<INavBarProps> {
 		}
 
 		return (
+			<Root>
 			<Nav
 				id="nav"
 				className={`nav ${appendClass}`}
@@ -149,29 +169,31 @@ class NavBar extends Component<INavBarProps> {
 						<SubMenuItem>
 							<Link
 								href="/loremipsum"
-								onClick={this.handleLinkClick}
+								onClick={() => this.handleLinkClick("loremipsum")}
 							>
 								Lorem Ipsum
+								<UnderLine />
 							</Link>
-							<UnderLine />
+							
 						</SubMenuItem>
 						<SubMenuItem>
 							<Link
 								href="/loremipsum"
-								onClick={this.handleLinkClick}
+								onClick={() => this.handleLinkClick("loremipsum")}
 							>
 								Lorem Ipsum
+								<UnderLine />
 							</Link>
-							<UnderLine />
 						</SubMenuItem>
 						<SubMenuItem>
 							<Link
+								id="1"
 								href="/loremipsum"
-								onClick={this.handleLinkClick}
+								onClick={() => this.handleLinkClick("1")}
 							>
 								Lorem Ipsum
+								<UnderLine />
 							</Link>
-							<UnderLine />
 						</SubMenuItem>
 					</DropDown>
 				</MenuItem>
@@ -183,11 +205,11 @@ class NavBar extends Component<INavBarProps> {
 						<SubMenuItem>
 							<Link
 								href="/resume"
-								onClick={this.handleLinkClick}
+								onClick={() => this.handleLinkClick("resume")}
 							>
 								View my CV/Resumé
+								<UnderLine />
 							</Link>
-							<UnderLine />
 						</SubMenuItem>
 					</DropDown>
 				</MenuItem>
@@ -200,29 +222,29 @@ class NavBar extends Component<INavBarProps> {
 						<SubMenuItem>
 							<Link
 								href="/saywhat"
-								onClick={this.handleLinkClick}
+								onClick={() => this.handleLinkClick("saywhat")}
 							>
-								What is alexdev?
+								What's alexdev?
+								<UnderLine />
 							</Link>
-							<UnderLine />
 						</SubMenuItem>
 						<SubMenuItem>
 							<Link
 								href="/aboutme"
-								onClick={this.handleLinkClick}
+								onClick={() => this.handleLinkClick("aboutme")}
 							>
 								About me
+								<UnderLine />
 							</Link>
-							<UnderLine />
 						</SubMenuItem>
 					</DropDown>
 				</MenuItem>
 			</Nav>
+			</Root>
 		);
 	}
 
 	render(): React.ReactNode {
-	
 		return (
 			<div>
 				{this.renderNavBar()}

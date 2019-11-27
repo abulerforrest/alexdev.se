@@ -7,6 +7,41 @@ export const defaultTheme = {
 	primaryFont: `"Roboto", sans-serif`,
 	secondaryFont: `"Volkhov", serif`,
 	secondaryColor: "rgba(0,212,255,1)",
+	defaultOpacity: 1,
+	defaultMargin: 0,
+	black: "#000000",
+	white: "#ffffff",
+
+	resume: {
+		zIndex: 0,
+		height: "3500px",
+		primaryFont: `"Arial"`,
+		secondaryFont: `"Nunito Sans", sans-serif`,
+		altFont: `"Montserrat", sans-serif`,
+		backgroundColor: "#ffffff",
+		boxShadow: "0 2px 11px 2px rgba(0,0,0,0.5)",
+		logoSmallSize: "70px",
+		rightSideWidth: "450px",
+		linkColor: "#585858",
+		profilePicSize: "300px",
+
+		palette: {
+			grey: "#898989",
+			greyAlt: "#707070",
+			greyAlt2: "#646464",
+			lightGrey: "#8c8b8b",
+			bgColorGreen: "#daf5d6",
+			bgColorGrey: "#e9e9e9",
+			darkBlack: "#494949",
+			black: "#4a4a4a",
+			blackAlt: "#525252",
+			blackAlt2: "#2c5a6a",
+			silver: "#b6b6b6",
+			blue: "#8bbad6",
+			softBlue: "#99d3df",
+			lightBlue: "#3a575e"
+		}
+	},
 
 	// keyframe animations
 	animationReveal: css`${keyframeAnimations.menuReveal} 0.5s cubic-bezier(0.250, 0.860, 0.450, 0.940) both`,
@@ -14,7 +49,10 @@ export const defaultTheme = {
 	animationFocusIn: css`${keyframeAnimations.focusIn} 0.5s cubic-bezier(0.550, 0.085, 0.680, 0.530) both`,
 	animationFocusOut: css`${keyframeAnimations.focusOut} 0.5s cubic-bezier(0.550, 0.085, 0.680, 0.530) both`,
 	animationTextPopUp: css`${keyframeAnimations.textPopUp} 0.8s cubic-bezier(0.250, 0.860, 0.450, 0.940) both`,
-	animationBorderGrow: css`${keyframeAnimations.borderGrow} 0.2s ease-in`,
+	animationSlideInTop: css`${keyframeAnimations.slideInTop} 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) forwards`,
+	animationSlideOutTop: css`${keyframeAnimations.slideInTop} 1s reverse forwards`,
+	animationBorderGrow: css`${keyframeAnimations.borderGrow} 0.2s ease-in forwards`,
+	animationSpin: css`${keyframeAnimations.spin} 4s linear infinite;`,
 
 	// text shadows
 	primaryTextShadow: css`

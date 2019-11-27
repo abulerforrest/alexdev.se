@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useEffect } from "react";
 import { observer } from "mobx-react";
 
 import './Top.css';
@@ -13,133 +13,130 @@ import {
 		INavBarController
 } from "../../interfaces/NavBarController";
 
-const Root = styled.div`
-	z-index: 1;
-	right: 20px;
-	width: 100%;
-	display: flex;
-	user-select: none;
-	overflow-x: hidden;
-	position: absolute;
-	padding-bottom: 700px;
-	justify-content: flex-end;
-	color: ${(props) => props.theme.primaryColor};
-	font-family: ${(props) => props.theme.primaryFont};
-`;
-
-const ProfilePic = styled.div`
-	top: 0;
-	right: 0px;
-	width: 80px;
-	height: 80px;
-	cursor: pointer;
-	margin-top: 20px;
-	border-radius: 50%;
-	position: absolute;
-	background-size: 80px;
-	background-repeat: no-repeat;
-	background-color: rgba(0,212,255,1);
-	background-image: url(${profilePic});
-	animation: ${(props) => props.theme.animationReveal};
-	animation-delay: 0.2s;
-`;
-
-const ClickMeText = styled.div`
-	top: 36px;
-	right: 110px;
-	padding: 18px;
-	font-size: 20px;
-	position: absolute;
-	border-radius: 8px;
-	color: ${(props) => props.theme.secondaryColor};
-	background-color: ${(props) => props.theme.primaryColor};
-	animation: ${(props) => props.theme.animationReveal};
-	animation-delay: 0.4s;
-
-	&:after {
-		top: 50%;
-		right: 0;
-		content: '';
-		position: absolute;
-		border: 20px solid transparent;
-		border-top: 0;
-		border-right: 0;
-		border-left-color: #ffffff;
-		margin-top: -10px;
-		margin-right: -20px;
-	}
-`;
+import { IResumePageController } from "../../interfaces/ResumePageController";
 
 export type NavBarState = "default" | "revealed" | "collapsed";
 
 interface ITopProps {
 	controller: INavBarController
+	parentController: IResumePageController
 }
 
-@observer
-class Top extends Component<ITopProps> {
+const Top = observer(({controller, parentController}: ITopProps) => {
 
-	private readonly controller: INavBarController;
-	private readonly myRef: React.RefObject<HTMLDivElement> = React.createRef<HTMLDivElement>();
+	const myRef: React.RefObject<HTMLDivElement> = React.createRef<HTMLDivElement>();
 
-	constructor(props: any) {
-		super(props);
 
-		this.controller = props.controller;
-	}
+	const Root = styled.div`
+		display: flex;
+		height: 100px;
+		justify-content: flex-end;
+		position: fixed;
+		user-select: none;
+		right: 20px;
+		z-index: 2;
+		color: ${props => props.theme.primaryColor};
+		font-family: ${props => props.theme.primaryFont};
+		width: 0px;
+	`;
 
-	componentDidMount() {
-		document.addEventListener("mousedown", this.handleClickOutside);
-	}
+	const ProfilePic = styled.div`
+		z-index: 2;
+		top: 0;
+		right: 0px;
+		width: 80px;
+		height: 80px;
+		cursor: pointer;
+		margin-top: 20px;
+		padding-right: 20px;
+		position: absolute;
+		background-size: 80px;
+		background-repeat: no-repeat;
+		background-image: url(${profilePic});
+		animation: ${props => props.theme.animationReveal};
+		animation-delay: 0.2s;
+	`;
 
-	componentWillUnmount() {
-		document.removeEventListener("mousedown", this.handleClickOutside);
-	}
+	const ClickMeText = styled.div`
+		z-index: 2;
+		top: 36px;
+		right: 130px;
+		padding: 18px;
+		font-size: 20px;
+		white-space: nowrap;
+		position: absolute;
+		border-radius: 8px;
+		color: ${(props) => props.theme.secondaryColor};
+		background-color: ${(props) => props.theme.primaryColor};
+		animation: ${(props) => props.theme.animationReveal};
+		animation-delay: 0.4s;
 
-	handleClickOutside = (e: any) => {
-		if (!this.myRef.current!.contains(e.target) && this.controller.navBarState !== "default") {
-			this.controller.hideNav();
+		&:after {
+			top: 50%;
+			right: 0;
+			content: '';
+			margin-top: -10px;
+			position: absolute;
+			border: 20px solid transparent;
+			border-top: 0;
+			border-right: 0;
+			border-left-color: #ffffff;
+			margin-right: -20px;
+		}
+	`;
+
+	useEffect(() => {
+		
+		document.addEventListener("mousedown", handleClickOutside);
+
+		return function cleanup() {
+			document.removeEventListener('mousedown', handleClickOutside);
+		};
+
+	});
+
+	const handleClickOutside = (e: any) : void => {
+
+		if (!myRef.current!.contains(e.target) && controller.navBarState !== "default") {
+			controller.hideNav();
 		}
 	};
 
-	toggleShowNav = () => {
-		this.props.controller.toggleShowNav();
+	const toggleShowNav = () : void => {
+		controller.toggleShowNav();
 	}
 
-	render() {
+	const renderClickMe = (text: string) : React.ReactNode => {
 
-		const { controller } = this.props;
+		if(controller.navBarState === "default" || controller.navBarState === "collapsed") {
 
-		const renderClickMe = (text: string) : React.ReactNode => {
-
-			if(this.controller.navBarState === "default" || this.controller.navBarState === "collapsed") {
-
-				return (
-					<ClickMeText>
-						{text}
-					</ClickMeText>
-				);
-			}
-
+			return (
+				<ClickMeText>
+					{text}
+				</ClickMeText>
+			);
 		}
 
-		const defaultText = "Click me! :)";
+	}
+
+	const defaultText = "Click me! :)";
 
 		return (
-			<div>
+			<React.Fragment>
 				<Root>
 					{renderClickMe(defaultText)}
-					<div ref={this.myRef}>
-						<NavBar controller={controller}/>
+					<div
+						style={{zIndex: 5}}
+						ref={myRef}
+					>	
+						<NavBar controller={controller} parentController={parentController}/>
 						<ProfilePic
-							onClick={() => this.toggleShowNav()}
+							onClick={() => toggleShowNav()}
 						/>
 					</div>
 				</Root>
-			</div>
-		);
-		
-	}
-};
+			</React.Fragment>
+	);
+});
 
 export default Top;
