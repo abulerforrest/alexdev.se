@@ -1,9 +1,17 @@
-import { observer } from "mobx-react";
-import React, { Component } from "react";
+import React from "react";
+
+import {
+    useObserver,
+    useLocalStore
+} from "mobx-react";
 
 import styled from "styled-components";
 
-import { INavBarController } from "../../interfaces/NavBarController";
+import {
+    INavBarController
+} from "../../interfaces/NavBarController";
+
+import { autorun } from "mobx";
 
 const Root = styled.div`
     display: flex;
@@ -18,38 +26,37 @@ interface IPageModalProps {
     controller: INavBarController
 }
 
-@observer
-class PageModal extends Component<IPageModalProps> {
+const PageModal = ({page, controller}: IPageModalProps) => {
 
-	componentDidMount() {
+	const ctrl = useLocalStore(() => (controller));
+
+    React.useEffect(
+        () => autorun(() => {
+
         const id = document.getElementById("page");
-       
+
         if(id !== null) {
             id.click();
         }
+    }));
+
+        return useObserver(() => {
+            let style = {};
+
+            if(ctrl.values.navBarState.get() === "revealed") {
+                style = {
+                    filter: "blur(2px)",
+                    opacity: 0.5
+                }            
+            }
     
-    }
-
-    render() {
-
-        let style = {};
-
-		if(this.props.controller.navBarState === "revealed") {
-
-		 	style = {
-				filter: "blur(2px)",
-		 		opacity: 0.5
-		 	}
-		
-		 }
-
-		return (
-            <Root id="page" style={style}>
-                {this.props.page}
-            </Root>
-        );
-        
+            return (
+                <Root id="page" style={style}>
+                    {page}
+                </Root>
+            );
         }
-	};
-
+    );        
+}
+    
 export default PageModal;

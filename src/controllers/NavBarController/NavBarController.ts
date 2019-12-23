@@ -1,33 +1,44 @@
-import { observable, action } from "mobx";
+import {
+    action,
+    observable
+} from "mobx";
 
 import {
-	INavBarController
+	INavBarController, INavBarControllerValues, INavBarControllerActions
 } from "../../interfaces/NavBarController";
 
-import { NavBarState } from "../../components/NavBar";
+const NavBarController = (): INavBarController => {
 
-export class NavBarController implements INavBarController {
-
-	@observable public showNav: boolean = false;
-	@observable public clickedOutside: boolean = false;
-
-	@observable public navBarState: NavBarState = "default";
-
-	@action
-	public toggleShowNav() : void {
-		this.showNav = !this.showNav;
-
-		if(this.showNav) {
-			this.navBarState = "revealed";
-		} else {
-			this.navBarState = "collapsed";
-		}
+	const observableValues: INavBarControllerValues = {
+        showNav: observable.box(false),
+        clickedOutside: observable.box(false),
+        navBarState: observable.box("default")
 	}
 
-	@action
-	public hideNav() : void {
-		this.showNav = false;
-		this.navBarState = "collapsed";
+    const toggleShowNav = action(() => {
+		observableValues.showNav.set(!observableValues.showNav.get());
+
+		if(observableValues.showNav.get()) {
+			observableValues.navBarState.set("revealed");
+		} else {
+			observableValues.navBarState.set("collapsed");
+		}
+
+	});
+
+	const hideNav = action(() => {
+		observableValues.showNav.set(false);
+		observableValues.navBarState.set("collapsed");
+	});
+
+    const actions: INavBarControllerActions = {
+		toggleShowNav: toggleShowNav,
+		hideNav: hideNav
+    }
+	
+	return {
+		values: observableValues,
+		actions: actions
 	}
 
 }

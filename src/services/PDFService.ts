@@ -1,15 +1,23 @@
 import { pdf } from '@react-pdf/renderer';
 
 import ResumePDF from "../components/ResumePDF";
-import { IPDFService } from "../interfaces/services/PDFService";
 
-export class PDFService implements IPDFService {
-    public async loadPDF(): Promise<Blob> {
+import {
+    IPDFService
+} from "../interfaces/services/PDFService";
 
-        let pdfBlob = null;
+export const PDFService = () => {
+    const service: IPDFService = {
+        async loadPDF(): Promise<Blob> {
 
-        pdfBlob = await pdf(ResumePDF as any).toBlob();
+            let pdfBlob: Blob = new Blob();
 
-        return pdfBlob;
+            pdfBlob = await pdf(ResumePDF as JSX.Element).toBlob();
+
+            return pdfBlob;
+        }
     }
+    return service;
 }
+
+export type TService = ReturnType<typeof PDFService>;

@@ -1,7 +1,10 @@
 
 import * as React from "react";
-import { observable } from "mobx";
-import { observer } from "mobx-react";
+
+import {
+	useObserver,
+	useLocalStore
+} from "mobx-react";
 
 import styled from "styled-components";
 
@@ -23,26 +26,23 @@ const SplashPageContainer = styled.div`
 	font-family: 'Volkhov', serif;
 `;
 
-interface ISplashPageProps {
-	controller: INavBarController;
+interface INavBarControllerProps {
+	controller: INavBarController
 }
 
-@observer
-class SplashPage extends React.Component<ISplashPageProps> {
+interface ISplashPageProps {
+	controller: INavBarController
+}
 
-	@observable private readonly controller: INavBarController;
+const SplashPage = ({controller}: ISplashPageProps) => {
 
-	constructor(props: any) {
-		super(props);
+	const ctrl = useLocalStore(() => (controller));
 
-		this.controller = props.controller;
-	}
-
-	render(): React.ReactNode {
+	return useObserver(() => {
 
 		let logoState: LogoState = "default";
 	
-		if(this.controller.navBarState === "revealed") {
+		if(ctrl.values.navBarState.get() === "revealed") {
 			logoState = "dimmed";
 		}
 
@@ -51,8 +51,7 @@ class SplashPage extends React.Component<ISplashPageProps> {
 				<Logo logoState={logoState} />
 			</SplashPageContainer>
 		);
-	}
-
+	});
 }
 
 export default SplashPage;

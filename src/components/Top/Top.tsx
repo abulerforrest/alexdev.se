@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { observer } from "mobx-react";
+import { useLocalStore, useObserver } from "mobx-react";
 
 import './Top.css';
 
@@ -13,19 +13,19 @@ import {
 		INavBarController
 } from "../../interfaces/NavBarController";
 
-import { IResumePageController } from "../../interfaces/ResumePageController";
-
 export type NavBarState = "default" | "revealed" | "collapsed";
 
 interface ITopProps {
 	controller: INavBarController
-	parentController: IResumePageController
 }
 
-const Top = observer(({controller, parentController}: ITopProps) => {
+const Top = ({controller}: ITopProps) => {
+
+	const fetchController = controller;
+	
+	controller = useLocalStore(() => (fetchController));
 
 	const myRef: React.RefObject<HTMLDivElement> = React.createRef<HTMLDivElement>();
-
 
 	const Root = styled.div`
 		display: flex;
@@ -97,18 +97,18 @@ const Top = observer(({controller, parentController}: ITopProps) => {
 
 	const handleClickOutside = (e: any) : void => {
 
-		if (!myRef.current!.contains(e.target) && controller.navBarState !== "default") {
-			controller.hideNav();
+		if (!myRef.current!.contains(e.target) && controller.values.navBarState.get() !== "default") {
+			controller.actions.hideNav();
 		}
 	};
 
 	const toggleShowNav = () : void => {
-		controller.toggleShowNav();
+		controller.actions.toggleShowNav();
 	}
 
 	const renderClickMe = (text: string) : React.ReactNode => {
 
-		if(controller.navBarState === "default" || controller.navBarState === "collapsed") {
+		if(controller.values.navBarState.get() === "default" || controller.values.navBarState.get() === "collapsed") {
 
 			return (
 				<ClickMeText>
@@ -121,6 +121,8 @@ const Top = observer(({controller, parentController}: ITopProps) => {
 
 	const defaultText = "Click me! :)";
 
+	return useObserver(() => {
+
 		return (
 			<React.Fragment>
 				<Root>
@@ -129,14 +131,15 @@ const Top = observer(({controller, parentController}: ITopProps) => {
 						style={{zIndex: 5}}
 						ref={myRef}
 					>	
-						<NavBar controller={controller} parentController={parentController}/>
+						<NavBar controller={controller} />
 						<ProfilePic
 							onClick={() => toggleShowNav()}
 						/>
 					</div>
 				</Root>
 			</React.Fragment>
-	);
-});
+		);
+	});
+}
 
 export default Top;

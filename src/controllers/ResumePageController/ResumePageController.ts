@@ -1,110 +1,121 @@
-import { observable, action } from "mobx";
-import { RootStore } from "../../stores/RootStore";
+import React from "react";
 
 import {
-	IResumePageController
-} from "../../interfaces/ResumePageController";
+    action,
+    observable,
+    IObservableValue
+} from "mobx";
 
 import {
     ActionIconTypes
 } from "../../components/ActionIcons";
 
-export class ResumePageController implements IResumePageController {
+import {
+    IResumePageController,
+    IResumePageControllerValues,
+    IResumePageControllerActions
+} from "../../interfaces/ResumePageController";
 
-    private readonly rootStore: RootStore;
+import {
+    pdfStoreContext
+} from "../../contexts";
 
-    @observable public scrollTop: boolean = true;
+import {
+    IPDFStore
+} from "../../stores/PDFStore";
 
-    @observable public isLoadingPDF: boolean = false;
-    @observable public isLoadingPage: boolean = false;
+const ResumePageController = (): IResumePageController => {
 
-    @observable public currentPage: string = "";
-    @observable public currentActionIcon: ActionIconTypes = null!;
-    
-    constructor(rootStore: RootStore) {
-        this.rootStore = rootStore;
-        
-        this.load();
+    const pdfStore: IPDFStore = React.useContext(pdfStoreContext);
+
+    const observableValues: IResumePageControllerValues = {
+        currentPage: observable.box(""),
+        scrollTop: observable.box(true),
+        isLoadingPage: observable.box(true),
+        isLoadingPDF: observable.box(false),
+        currentActionIcon: observable.box(ActionIconTypes.PRINT)
     }
 
-    @action
-    public setScrollTop(isScrolling: boolean) : void {
-        this.scrollTop = isScrolling;
-    }
+    const setScrollTop = action((isScrolling: boolean) => {
+        observableValues.scrollTop.set(isScrolling);
+    });
 
-    @action
-    public setPageLoading(isLoading: boolean) : void {
-        this.isLoadingPage = isLoading;
-    }
+    const setPageLoading = action((isLoading: boolean) => {
+        observableValues.isLoadingPage.set(isLoading);
+    });
 
-
-    @action
-    public async getPDFBlob(): Promise<any> {
-
-        this.isLoadingPDF = true;
+    const getPDFBlob = action(async (): Promise<IObservableValue<Blob> | undefined> => {
+        observableValues.isLoadingPDF.set(true);
 
         try {
-            await this.rootStore.pdfStore.loadPDFBlob();
-            return this.rootStore.pdfStore.pdfBlob;
+            await pdfStore.loadPDFBlob();
+            return pdfStore.pdfBlob.get();
         }
         catch(error) {
-
+            console.error(error)
         }
         finally {
-            this.isLoadingPDF = false;
+            observableValues.isLoadingPDF.set(false);
         }
+    });
+
+    const setCurrentPage = action((page: string) => {
+        observableValues.currentPage.set(page);
+    });
+
+    const setCurrentActionIcon = action((type: ActionIconTypes) => {
+        observableValues.currentActionIcon.set(type);
+    });
+
+    const downloadPDF = action(async (filename: string, type: ActionIconTypes): Promise<void> => {
+        observableValues.currentActionIcon.set(type);
+
+        try {
+            await getPDFBlob().then(response => {
+                let url = window.URL.createObjectURL(response);
+                let a = document.createElement("a");
+                a.href = url;
+                a.download = `${filename}.pdf`;
+                a.click();
+            });
+        }
+
+        catch(error) {
+            console.error(error);
+        }
+    });
+
+    const printPDF = action(async (type: ActionIconTypes): Promise<void> => {
+
+        observableValues.currentActionIcon.set(type);
+
+        try {
+            await getPDFBlob().then(response => {
+                let url = window.URL.createObjectURL(response);
+                let a = document.createElement("a");
+                a.href = url;
+                a.click();
+            });
+        }
+        catch(error) {
+            console.error(error);
+        }
+    });
+
+    const actions: IResumePageControllerActions = {
+        printPDF: printPDF,
+        getPDFBlob: getPDFBlob,
+        downloadPDF: downloadPDF,
+        setScrollTop: setScrollTop,
+        setPageLoading: setPageLoading,
+        setCurrentPage: setCurrentPage,
+        setCurrentActionIcon: setCurrentActionIcon
     }
 
-    private async load() : Promise<void> {
-        
-        this.setPageLoading(true);
-        
-		try {
-            
-         }
-		catch(error) {
-
-		}
-		finally {
-
-		}
-	}
-    
-    @action
-    public setCurrentPage(page: string) : void {
-        this.currentPage = page;
+    return {
+        actions: actions,
+        values: observableValues
     }
-
-    @action
-    private setCurrentActionIcon(type: ActionIconTypes) : void {
-        this.currentActionIcon = type;
-    }
-
-    @action
-    public downloadPDF(filename: string, type: ActionIconTypes) : void {
-        this.setCurrentActionIcon(type);
-
-		this.getPDFBlob().then(response => {
-			let url = window.URL.createObjectURL(response);
-			let a = document.createElement("a");
-			a.href = url;
-			a.download = `${filename}.pdf`;
-			a.click();
-		});
-    }
-
-    @action
-    public async printPDF(type: ActionIconTypes) : Promise<void> {
-        this.setCurrentActionIcon(type);
-
-        await this.getPDFBlob().then(response => {
-            let url = window.URL.createObjectURL(response);
-            let a = document.createElement("a");
-            a.href = url;
-            a.click();
-        });
-    }
-
 }
 
 export default ResumePageController;

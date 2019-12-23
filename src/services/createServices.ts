@@ -8,10 +8,10 @@ export interface IServices {
 	pdfService: IPDFService
 }
 
-export const createServices = () : IServices => {
+export const createServices = (): IServices => {
 
 	return {
-		pdfService: new PDFService()
+		pdfService: PDFService()
 	}
 
 };

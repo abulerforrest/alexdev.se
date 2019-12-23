@@ -8,40 +8,31 @@ import { ThemeProvider } from "styled-components";
 
 import GlobalStyle from "./themes/global-styles";
 
-import Top from './components/Top';
+import Top from "./components/Top";
 import SplashPage from "./components/pages/SplashPage";
 
-import NavBarController from './controllers/NavBarController';
-import ResumePageController from "./controllers/ResumePageController";
-import { RootStore } from "./stores/RootStore";
+import NavBarController from "./controllers/NavBarController";
 
-import { IServices } from './services/createServices';
-import { PDFService } from "./services/PDFService";
+import StoreProvider from './contexts';
 
-const services : IServices = {
-	pdfService: new PDFService()
-}
+const navBarController = NavBarController();
 
-const rootStore = new RootStore(services);
+const App: React.FC = () => {
 
-const navBarController = new NavBarController();
-const resumePageController = new ResumePageController(rootStore);
-
-function App() {
-
-	const routeResult = useRoutes(routes({navBarController: navBarController, resumePageController: resumePageController}));
+	const routeResult = useRoutes(routes({navBarController}));
 
 	return (
-		<ThemeProvider theme={defaultTheme}>
-			<div className="App">
-				<GlobalStyle />
-				<Top
-					controller={navBarController}
-					parentController={resumePageController}
-				/>
-				{routeResult? routeResult: <SplashPage controller={navBarController} />}
-			</div>
-		</ThemeProvider>
+		<StoreProvider>
+			<ThemeProvider theme={defaultTheme}>
+				<div className="App">
+					<GlobalStyle />
+					<Top
+						controller={navBarController}
+					/>
+					{routeResult? routeResult: <SplashPage controller={navBarController} />}
+				</div>
+			</ThemeProvider>
+		</StoreProvider>
 	);
 }
 

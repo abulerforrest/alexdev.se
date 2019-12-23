@@ -21,7 +21,7 @@ export interface IActionIcons {
 
 interface IActionIconsProps {
     spinnerColor?: string
-    isLoadingPDF: boolean
+    isLoading: boolean
     state: ActionIconsState
     icons: IActionIcons[],
     currentIcon: ActionIconTypes
@@ -39,7 +39,7 @@ const ActionIcons = observer((props: IActionIconsProps) => {
         state,
         currentIcon,
         spinnerColor,
-        isLoadingPDF
+        isLoading
     } = props;
 
     const actionIconsState = state? state: defaultProps.state;
@@ -92,13 +92,13 @@ const ActionIcons = observer((props: IActionIconsProps) => {
 		return (
 			<ControlIconsWrapper>
                 {icons.map(icon => {
-
                     let style: CSSProperties = {};
 
-                    if(isLoadingPDF === true) {
+                    if(isLoading) {
                         style = {
                             backgroundColor: "#e9e9e9",
-                            animation: "none"
+                            animation: "none",
+                            pointerEvents: "none"
                         }
                     }
 
@@ -108,7 +108,7 @@ const ActionIcons = observer((props: IActionIconsProps) => {
                             style={style}
                             onClick={icon.src}
                         >
-                        {isLoadingPDF === true && currentIcon === icon.type? <Spinner size={30} color={spinnerLoadColor} />:
+                        {isLoading === true && currentIcon === icon.type? <Spinner size={30} color={spinnerLoadColor} />:
                             <SVGIcon
                                 iconType={icon.type}
                                 width={30}

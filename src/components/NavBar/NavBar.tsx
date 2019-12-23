@@ -1,18 +1,17 @@
-import React, { Component } from "react";
+import React from "react";
 
 import { A as Link } from "hookrouter";
 
 import styled from "styled-components";
 
-import { observer } from "mobx-react";
+import {
+	useObserver,
+	useLocalStore
+} from "mobx-react";
 
 import {
 	INavBarController
 } from "../../interfaces/NavBarController";
-
-import { IResumePageController } from "../../interfaces/ResumePageController";
-
-export type NavBarState = "default" | "revealed" | "collapsed";
 
 const MenuItem = styled.li`
 	margin-right: 40px;
@@ -33,7 +32,6 @@ const Root = styled.div`
 	text-transform: uppercase;
 	justify-content: space-evenly;
 `;
-
 
 const DropDown = styled.ul`
 	padding: 0;
@@ -90,7 +88,7 @@ const SubMenuItem = styled.li`
 
 const Nav = styled.ul`
 	display: none;
-	right: 200px;	
+	right: 100px;	
 	list-style-type: none;
 	position: absolute;
 	color: ${(props) => props.theme.primaryColor};
@@ -119,139 +117,126 @@ const Nav = styled.ul`
 
 interface INavBarProps {
 	controller: INavBarController
-	parentController: IResumePageController
 }
 
-@observer
-class NavBar extends Component<INavBarProps> {
+const NavBar = ({controller}: INavBarProps) => {
 
-	private readonly controller: INavBarController;
-	private readonly parentController: IResumePageController;
+	const ctrl = useLocalStore(() => (controller));
 
-	constructor(props: any) {
-		super(props);
-
-		this.controller = props.controller;
-		this.parentController = props.parentController;
+	const handleLinkClick = (page?: string): void => {
+		ctrl.actions.hideNav();
 	}
 
-	handleLinkClick = (page?: string) : void => {
+	const renderNavBar = (): React.ReactNode => {
 
-		this.controller.hideNav();
-
-		if(page) {
-			this.parentController.setCurrentPage(page);
-		}
-
-	}
-
-	renderNavBar() : React.ReactNode {
-
-		const { controller } = this.props;
-			
 		let appendClass = null;
 
-		if(controller.navBarState !== "default") {
-			appendClass = controller.showNav? "reveal": "collapse";
+		if(ctrl.values.navBarState.get() !== "default") {
+			appendClass = ctrl.values.showNav.get()? "reveal": "collapse";
 		}
 
 		return (
 			<Root>
-			<Nav
-				id="nav"
-				className={`nav ${appendClass}`}
-			>
-				<MenuItem>
-					<MenuLink>
-						Projects
-					</MenuLink>
-					<DropDown>
-						<SubMenuItem>
-							<Link
-								href="/loremipsum"
-								onClick={() => this.handleLinkClick("loremipsum")}
-							>
-								Lorem Ipsum
-								<UnderLine />
-							</Link>
-							
-						</SubMenuItem>
-						<SubMenuItem>
-							<Link
-								href="/loremipsum"
-								onClick={() => this.handleLinkClick("loremipsum")}
-							>
-								Lorem Ipsum
-								<UnderLine />
-							</Link>
-						</SubMenuItem>
-						<SubMenuItem>
-							<Link
-								id="1"
-								href="/loremipsum"
-								onClick={() => this.handleLinkClick("1")}
-							>
-								Lorem Ipsum
-								<UnderLine />
-							</Link>
-						</SubMenuItem>
-					</DropDown>
-				</MenuItem>
-				<MenuItem>
-					<MenuLink>
-						Resumé
-					</MenuLink>
-					<DropDown>
-						<SubMenuItem>
-							<Link
-								href="/resume"
-								onClick={() => this.handleLinkClick("resume")}
-							>
-								View my CV/Resumé
-								<UnderLine />
-							</Link>
-						</SubMenuItem>
-					</DropDown>
-				</MenuItem>
-				<MenuItem>
-					<MenuLink>
-						About
-						<UnderLine />
-					</MenuLink>
-					<DropDown>
-						<SubMenuItem>
-							<Link
-								href="/saywhat"
-								onClick={() => this.handleLinkClick("saywhat")}
-							>
-								What's alexdev?
-								<UnderLine />
-							</Link>
-						</SubMenuItem>
-						<SubMenuItem>
-							<Link
-								href="/aboutme"
-								onClick={() => this.handleLinkClick("aboutme")}
-							>
-								About me
-								<UnderLine />
-							</Link>
-						</SubMenuItem>
-					</DropDown>
-				</MenuItem>
-			</Nav>
+				<Nav
+					id="nav"
+					className={`nav ${appendClass}`}
+				>
+					<MenuItem>
+						<MenuLink>
+							Projects
+						</MenuLink>
+						<DropDown>
+							<SubMenuItem>
+								<Link
+									href="/wordrazer"
+									onClick={() => handleLinkClick("wordrazer")}
+								>
+									Wordrazer Game
+									<UnderLine />
+								</Link>
+							</SubMenuItem>
+						</DropDown>
+					</MenuItem>
+					<MenuItem>
+						<MenuLink>
+							Resumé
+						</MenuLink>
+						<DropDown>
+							<SubMenuItem>
+								<Link
+									href="/resume"
+									onClick={() => handleLinkClick("resume")}
+								>
+									View my CV/Resumé
+									<UnderLine />
+								</Link>
+							</SubMenuItem>
+						</DropDown>
+					</MenuItem>
+					<MenuItem>
+						<MenuLink>
+							Music
+						</MenuLink>
+						<DropDown>
+							<SubMenuItem>
+								<Link
+									href="/albums"
+									onClick={() => handleLinkClick("albums")}
+								>
+									Albums
+									<UnderLine />
+								</Link>
+
+							</SubMenuItem>
+							<SubMenuItem>
+								<Link
+									href="/soundtracks"
+									onClick={() => handleLinkClick("soundtracks")}
+								>
+									Soundtracks
+									<UnderLine />
+								</Link>
+							</SubMenuItem>
+						</DropDown>
+					</MenuItem>
+					<MenuItem>
+						<MenuLink>
+							Contact
+							<UnderLine />
+						</MenuLink>
+						<DropDown>
+							<SubMenuItem>
+								<Link
+									href="/saywhat"
+									onClick={() => handleLinkClick("saywhat")}
+								>
+									What's alexdev?
+									<UnderLine />
+								</Link>
+							</SubMenuItem>
+							<SubMenuItem>
+								<Link
+									href="/aboutme"
+									onClick={() => handleLinkClick("aboutme")}
+								>
+									About me
+									<UnderLine />
+								</Link>
+							</SubMenuItem>
+						</DropDown>
+					</MenuItem>
+				</Nav>
 			</Root>
 		);
 	}
 
-	render(): React.ReactNode {
+	return useObserver(() => {
 		return (
 			<div>
-				{this.renderNavBar()}
+				{renderNavBar()}
 			</div>
-		);
-	}
-
+		)}
+	);
 }
 
 export default NavBar;

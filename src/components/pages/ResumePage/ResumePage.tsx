@@ -1,49 +1,40 @@
-import React, { useEffect } from "react";
+import React from "react";
 
-import { observer } from "mobx-react";
+import { autorun } from "mobx";
+
+import {
+	useObserver, 
+	useLocalStore
+} from "mobx-react";
 
 import styled from "styled-components";
+import { assets } from "./internal/assets";
 
-// icon assets
-import webIcon from "../../../assets/png/web_icon.png";
-import codingIcon from "../../../assets/png/coding_icon.png";
-import runningIcon from "../../../assets/png/running_icon.png";
-import composingIcon from "../../../assets/png/composing_icon.png";
-import travellingIcon from "../../../assets/png/travelling_icon.png";
+import ResumePageController from "../../../controllers/ResumePageController";
 
-import ghIcon from "../../../assets/png/gh.png";
-import fbIcon from "../../../assets/png/fb.png";
-import inIcon from "../../../assets/png/in.png";
-import phoneIcon from "../../../assets/png/phone.png";
-import emailIcon from "../../../assets/png/email.png";
-import addressIcon from "../../../assets/png/address.png";
+import ActionIcons, { ActionIconTypes, ActionIconsState } from "../../ActionIcons";
 
-// image assets
-import logoSmall from "../../../assets/png/a.png";
-import profilePic from "../../../assets/png/profile_pic.png";
+import PageLoader from "../../PageLoader";
 
 import {
 	IResumePageController
 } from "../../../interfaces/ResumePageController";
 
-import ActionIcons, { ActionIconTypes, ActionIconsState } from "../../ActionIcons";
-import PageLoader from "../../PageLoader";
-
-const Link = ({ className, children, href }: any) => (
+const Link = ({ className, children, href }: HTMLAnchorElement | any) => (
 	<a className={className} href={href}>
 		{children}
 	</a>
 );
 
-const div = ({ className }: any) => (
+const div = ({ className }: HTMLDivElement | any) => (
 	<div className={className} />
 );
 
-const span = ({ className }: any) => (
+const span = ({ className }: HTMLSpanElement | any) => (
 	<span className={className} />
 );
 
-const h1 = ({className, children}: any) => {
+const h1 = ({className, children}: HTMLHeadingElement | any) => {
 	return <h1 className={className}>{children}</h1>;
 }
 
@@ -103,7 +94,7 @@ const ProfilePicture = styled.div`
 	width: ${props => props.theme.resume.profilePicSize};
 	height: ${props => props.theme.resume.profilePicSize};
 	background-repeat: no-repeat;
-	background-image: url(${profilePic});
+	background-image: url(${assets.images.profilePic});
 	background-size: ${props => props.theme.resume.profilePicSize};
 `;
 
@@ -112,7 +103,7 @@ const LogoSmall = styled.div`
 	padding-bottom: 18px;
 	margin: -85px 0 0 650px;
 	background-repeat: no-repeat;
-	background-image: url(${logoSmall});
+	background-image: url(${assets.images.logoSmall});
 	animation: ${props => props.theme.animationFocusIn};
 	animation-delay: 0.2s;
 	width: ${props => props.theme.resume.logoSmallSize};
@@ -461,70 +452,47 @@ const Heading = styled(h1)`
 	animation-delay: 0.6s;
 `;
 
-interface IResumePageProps {
-	controller: IResumePageController
-}
-
 const renderControlIcons = (controller: IResumePageController) => {
 	
 	let actionIconsState: ActionIconsState = "visible";
 
-    if(!controller.scrollTop) {
+	const { values, actions } = controller;
+
+    if(!values.scrollTop.get()) {
         actionIconsState = "hidden"
 	} 
-	else if(controller.isLoadingPDF) {
+	else if(values.isLoadingPDF.get()) {
 		actionIconsState = "loading"
 	}
 
 	const icons = [
 		{
 			type: ActionIconTypes.PRINT,
-			src: () => controller.printPDF(ActionIconTypes.PRINT)
+			src: () => actions.printPDF(ActionIconTypes.PRINT)
 		},
 		{
 			type: ActionIconTypes.DOWNLOAD,
-			src: () => controller.downloadPDF("CV_Resume_Alexander_Buler_Forrest", ActionIconTypes.DOWNLOAD)
+			src: () => actions.downloadPDF("CV_Resume_Alexander_Buler_Forrest", ActionIconTypes.DOWNLOAD)
 		}
 	]
+
 	return (
 		<ActionIcons
 			icons={icons}
 			spinnerColor="#5fbacd"
-			isLoadingPDF={controller.isLoadingPDF}
 			state={actionIconsState}
-			currentIcon={controller.currentActionIcon}
+			isLoading={values.isLoadingPDF.get()}
+			currentIcon={values.currentActionIcon.get()}
 		/>
 	);
 
 }
 
-const Resume = observer(({controller}: IResumePageProps) => {
-	
-	const onScroll = (event: any) => {
+const renderResume = (controller: IResumePageController) => {
 
-		const scrollY = event.currentTarget.scrollY;
+	const { icons } = assets;
 
-		if(scrollY === 0) {		
-			controller.setScrollTop(true);
-		} else if(scrollY > 0 && controller.scrollTop) {
-			controller.setScrollTop(false);
-		}
-
-	}
-
-	useEffect(() => {
-		// has mounted
-		controller.setPageLoading(false);
-
-		window.addEventListener('scroll', (event) => onScroll(event), true);
-
-		return function cleanup() {
-			window.removeEventListener('scroll', onScroll);
-		};
-
-	});
-
-	const renderResume = () => (
+	return (
 		<Root id="resume">
 			<ResumeContainer>
 				<LeftSide>
@@ -671,35 +639,35 @@ const Resume = observer(({controller}: IResumePageProps) => {
 						<InterestIcon>
 							<StyledIcon
 								size="60px"
-								icon={codingIcon}
+								icon={icons.codingIcon}
 							/>
 							<p>Coding</p>
 						</InterestIcon>
 						<InterestIcon>
 							<StyledIcon
 								size="60px"
-								icon={travellingIcon}
+								icon={icons.travellingIcon}
 							/>
 							<p>Travelling</p>
 						</InterestIcon>
 						<InterestIcon>
 						<StyledIcon
 							size="60px"
-							icon={runningIcon}
+							icon={icons.runningIcon}
 						/>
 							<p>Running</p>
 						</InterestIcon>
 						<InterestIcon>
 						<StyledIcon
 							size="60px"
-							icon={composingIcon}
+							icon={icons.composingIcon}
 						/>
 							<p>Composing</p>
 						</InterestIcon>
 						<InterestIcon>
 						<StyledIcon
 							size="60px"
-							icon={webIcon}
+							icon={icons.webIcon}
 						/>
 							<p>WEB</p>
 						</InterestIcon>
@@ -709,7 +677,7 @@ const Resume = observer(({controller}: IResumePageProps) => {
 					<ProfilePicture/>
 					<RightHeading>Contacts</RightHeading>
 					<ContactInfoRow>
-						<ContactInfoIcon icon={phoneIcon}/>
+						<ContactInfoIcon icon={icons.phoneIcon}/>
 						<ContactInfoWrapper>
 							<ContactInfoHeading>
 								Phone
@@ -720,7 +688,7 @@ const Resume = observer(({controller}: IResumePageProps) => {
 						</ContactInfoWrapper>
 					</ContactInfoRow>
 					<ContactInfoRow>
-						<ContactInfoIcon icon={emailIcon} />
+						<ContactInfoIcon icon={icons.emailIcon} />
 						<ContactInfoWrapper>
 							<ContactInfoHeading>
 								EMAIL
@@ -731,7 +699,7 @@ const Resume = observer(({controller}: IResumePageProps) => {
 						</ContactInfoWrapper>
 					</ContactInfoRow>
 					<ContactInfoRow>
-						<ContactInfoIcon icon={addressIcon} />
+						<ContactInfoIcon icon={icons.addressIcon} />
 						<ContactInfoWrapper>
 							<ContactInfoHeading>
 								ADDRESS
@@ -847,7 +815,7 @@ const Resume = observer(({controller}: IResumePageProps) => {
 						<FollowMeRow>
 							<FollowMeIcon
 								size={24}
-								icon={inIcon}
+								icon={icons.inIcon}
 							/>
 							<FollowMeLink
 								href="https://linkedin.com/in/abulerforrest"
@@ -859,7 +827,7 @@ const Resume = observer(({controller}: IResumePageProps) => {
 						<FollowMeRow>
 							<FollowMeIcon
 								size={24}
-								icon={fbIcon}
+								icon={icons.fbIcon}
 								opacity={0.95}
 							/>
 							<FollowMeLink
@@ -872,7 +840,7 @@ const Resume = observer(({controller}: IResumePageProps) => {
 						<FollowMeRow>
 							<FollowMeIcon
 								size={26}
-								icon={ghIcon}
+								icon={icons.ghIcon}
 								opacity={0.95}
 								marginTop={1}
 							/>
@@ -888,15 +856,53 @@ const Resume = observer(({controller}: IResumePageProps) => {
 			</ResumeContainer>
 		</Root>
 	);
+}
 
-	return (
+const Resume = () => {
+
+	const fetchController: IResumePageController = ResumePageController();
+
+	const ctrl = useLocalStore(() => (fetchController))
+
+		React.useEffect(
+			() =>
+			autorun(() => {
+
+				// handle scroll event
+				const onScroll = (event: any) => {
+
+				const scrollY = event.currentTarget.scrollY;
+		
+				if(scrollY === 0) {
+					ctrl.actions.setScrollTop(true);
+				} else if(scrollY > 0 && ctrl.values.scrollTop.get() === true) {
+					ctrl.actions.setScrollTop(false);
+				}
+		
+			}		
+
+			// page has mounted
+			ctrl.actions.setPageLoading(false);
+		
+			window.addEventListener("scroll", (event) => onScroll(event), true);
+		
+			return function cleanup() {
+				window.removeEventListener("scroll", onScroll);
+			};
+		}), [ctrl]
+	);
+
+	return useObserver(() => {
+
+		return (
 		<PageLoader
-			isLoading={controller.isLoadingPage}
+			isLoading={ctrl.values.isLoadingPage.get()}
 			spinnerSize={80}
 		>
-			{renderResume()}
+			{renderResume(ctrl)}
 		</PageLoader>
-	);
-});
+		);
+	});
+}
 
 export default Resume;

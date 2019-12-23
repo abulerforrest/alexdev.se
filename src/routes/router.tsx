@@ -3,12 +3,12 @@ import * as React from "react";
 import PageModal from "../components/PageModal";
 import ResumePage from "../components/pages/ResumePage";
 
-import { INavBarController } from "../interfaces/NavBarController";
-import { IResumePageController } from "../interfaces/ResumePageController";
+import {
+  INavBarController
+} from "../interfaces/NavBarController";
 
 interface IRouterProps {
   navBarController: INavBarController
-  resumePageController: IResumePageController
 }
 
 const routes = (props: IRouterProps) => {
@@ -16,10 +16,10 @@ const routes = (props: IRouterProps) => {
   const routing = {
       "/resume": () => (
         <PageModal
-          page={<ResumePage controller={props.resumePageController} />}
-          controller={props.navBarController} />
-      ) 
-  };
+          page={<ResumePage />}
+          controller={props.navBarController}
+   />)
+};
 
   return routing;
 };

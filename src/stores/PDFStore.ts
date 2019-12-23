@@ -1,18 +1,24 @@
-import { RootStore } from "./RootStore";
-import { observable } from "mobx";
+import {
+    action,
+    observable
+} from "mobx";
 
-export class PDFStore {
+import { createServices } from "../services/createServices";
 
-    @observable public pdfBlob: Blob = new Blob();
-
-    private readonly rootStore: RootStore;
-
-    constructor(rootStore: RootStore) {
-        this.rootStore = rootStore;
-    }
-
-    async loadPDFBlob() : Promise<void> {
-        const getPDF = await this.rootStore.services.pdfService.loadPDF();
-        this.pdfBlob = getPDF;
-    }
+export interface IPDFStore {
+    pdfBlob: any
+    loadPDFBlob: () => Promise<void>
 }
+
+export const PDFStore = () => {
+    const { pdfService } = createServices();
+
+    const store: IPDFStore = {
+        pdfBlob: observable.box(new Blob()),
+        loadPDFBlob: action(async (): Promise<void> => {
+            const getPDF: Blob = await pdfService.loadPDF();
+            store.pdfBlob.set(getPDF);
+        }),
+    };
+    return store;
+};
