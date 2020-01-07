@@ -7,7 +7,7 @@ import {
 } from "mobx";
 
 import {
-    ActionIconTypes
+    IconTypes
 } from "../../components/ActionIcons";
 
 import {
@@ -17,7 +17,7 @@ import {
 } from "../../interfaces/ResumePageController";
 
 import {
-    pdfStoreContext
+    storeContext
 } from "../../contexts";
 
 import {
@@ -26,14 +26,14 @@ import {
 
 const ResumePageController = (): IResumePageController => {
 
-    const pdfStore: IPDFStore = React.useContext(pdfStoreContext);
+    const pdfStore: IPDFStore = React.useContext(storeContext).pdfStore;
 
     const observableValues: IResumePageControllerValues = {
         currentPage: observable.box(""),
         scrollTop: observable.box(true),
         isLoadingPage: observable.box(true),
         isLoadingPDF: observable.box(false),
-        currentActionIcon: observable.box(ActionIconTypes.PRINT)
+        currentActionIcon: observable.box(IconTypes.PRINT)
     }
 
     const setScrollTop = action((isScrolling: boolean) => {
@@ -63,11 +63,11 @@ const ResumePageController = (): IResumePageController => {
         observableValues.currentPage.set(page);
     });
 
-    const setCurrentActionIcon = action((type: ActionIconTypes) => {
+    const setCurrentActionIcon = action((type: IconTypes) => {
         observableValues.currentActionIcon.set(type);
     });
 
-    const downloadPDF = action(async (filename: string, type: ActionIconTypes): Promise<void> => {
+    const downloadPDF = action(async (filename: string, type: IconTypes): Promise<void> => {
         observableValues.currentActionIcon.set(type);
 
         try {
@@ -85,7 +85,7 @@ const ResumePageController = (): IResumePageController => {
         }
     });
 
-    const printPDF = action(async (type: ActionIconTypes): Promise<void> => {
+    const printPDF = action(async (type: IconTypes): Promise<void> => {
 
         observableValues.currentActionIcon.set(type);
 

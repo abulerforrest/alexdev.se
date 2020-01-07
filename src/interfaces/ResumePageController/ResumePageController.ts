@@ -1,7 +1,7 @@
-import { ObservableMap, IObservableValue } from "mobx";
+import { IObservableValue } from "mobx";
 
 import {
-    ActionIconTypes
+    IconTypes
 } from "../../components/ActionIcons";
 
 export enum controllIconTypes {
@@ -14,7 +14,7 @@ export interface IResumePageControllerValues {
     scrollTop:  IObservableValue<boolean>
     isLoadingPage: IObservableValue<boolean>
     isLoadingPDF: IObservableValue<boolean>
-    currentActionIcon: IObservableValue<ActionIconTypes>
+    currentActionIcon: IObservableValue<IconTypes>
 }
 
 export interface IResumePageControllerActions {
@@ -24,10 +24,10 @@ export interface IResumePageControllerActions {
     getPDFBlob: () => Promise<IObservableValue<Blob> | undefined>
     setCurrentPage: (page: string) => void
     
-    printPDF: (type: ActionIconTypes) => void
-    downloadPDF: (filename: string, type: ActionIconTypes) => void
+    printPDF: (type: IconTypes) => void
+    downloadPDF: (filename: string, type: IconTypes) => void
 
-    setCurrentActionIcon: (type: ActionIconTypes) => void
+    setCurrentActionIcon: (type: IconTypes) => void
 }
 
 export interface IResumePageController {

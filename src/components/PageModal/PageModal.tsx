@@ -1,8 +1,7 @@
 import React from "react";
 
 import {
-    useObserver,
-    useLocalStore
+    useObserver
 } from "mobx-react";
 
 import styled from "styled-components";
@@ -12,6 +11,8 @@ import {
 } from "../../interfaces/NavBarController";
 
 import { autorun } from "mobx";
+
+import { storeContext } from "../../contexts";
 
 const Root = styled.div`
     display: flex;
@@ -23,12 +24,11 @@ const Root = styled.div`
 
 interface IPageModalProps {
     page: React.ReactNode
-    controller: INavBarController
 }
 
-const PageModal = ({page, controller}: IPageModalProps) => {
+const PageModal = ({page}: IPageModalProps) => {
 
-	const ctrl = useLocalStore(() => (controller));
+    const ctrl: INavBarController = React.useContext(storeContext).navBarController;
 
     React.useEffect(
         () => autorun(() => {
@@ -45,7 +45,7 @@ const PageModal = ({page, controller}: IPageModalProps) => {
 
             if(ctrl.values.navBarState.get() === "revealed") {
                 style = {
-                    filter: "blur(2px)",
+                    filter: "blur(9px)",
                     opacity: 0.5
                 }            
             }

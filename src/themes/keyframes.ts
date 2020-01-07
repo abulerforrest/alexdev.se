@@ -11,6 +11,15 @@ export const slideInTop = keyframes`
 	}
 `;
 
+export const slideInLeft = keyframes`
+	from {
+		margin-left: 0px;
+	}
+	to {
+		margin-left: 10px;
+	}
+`;
+
 export const spin = keyframes`
 	from {
 		-webkit-transform: rotate(0deg);

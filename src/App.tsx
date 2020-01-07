@@ -1,38 +1,45 @@
 import React from "react";
 
 import { useRoutes } from "hookrouter";
+
 import routes from "./routes/router";
 
 import { defaultTheme } from "./themes/default";
+
 import { ThemeProvider } from "styled-components";
 
 import GlobalStyle from "./themes/global-styles";
 
 import Top from "./components/Top";
-import SplashPage from "./components/pages/SplashPage";
 
-import NavBarController from "./controllers/NavBarController";
+import PageNotFound from "./components/pages/404";
 
-import StoreProvider from './contexts';
+import {
+	StoreProvider
+} from "./contexts";
 
-const navBarController = NavBarController();
+import { errorQuotes } from "./internal/quotes";
 
 const App: React.FC = () => {
 
-	const routeResult = useRoutes(routes({navBarController}));
+	const routeResult = useRoutes(routes());
+
+	const randomQuote = errorQuotes[Math.floor(Math.random() * errorQuotes.length)];
 
 	return (
-		<StoreProvider>
-			<ThemeProvider theme={defaultTheme}>
-				<div className="App">
-					<GlobalStyle />
-					<Top
-						controller={navBarController}
-					/>
-					{routeResult? routeResult: <SplashPage controller={navBarController} />}
-				</div>
-			</ThemeProvider>
-		</StoreProvider>
+			<StoreProvider>
+				<ThemeProvider theme={defaultTheme}>
+					<div className="App">
+						<GlobalStyle />
+						<Top />
+						{routeResult || <PageNotFound
+											errorMsg="Page not found"
+											errorQuote={randomQuote}
+										/>
+						}
+					</div>
+				</ThemeProvider>
+			</StoreProvider>
 	);
 }
 

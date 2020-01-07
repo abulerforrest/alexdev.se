@@ -19,5 +19,3 @@ export const PDFService = () => {
     }
     return service;
 }
-
-export type TService = ReturnType<typeof PDFService>;

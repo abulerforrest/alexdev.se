@@ -1,60 +1,59 @@
 import * as React from "react";
 
 import { svgIcons } from "../../themes/svg-paths";
-import { ActionIconTypes } from "../ActionIcons";
+import { IconTypes } from "../ActionIcons";
+import { CSSProperties } from "styled-components";
 
-const getViewBox = (iconType: ActionIconTypes) => {
-    switch (iconType) {
-        case 0:
-            return svgIcons.print.viewBox;
-        case 1:
-            return svgIcons.download.viewBox;
-        default:
-            return "0 0 24 24";
-    }
-};
+interface SVGIconInputProps {
+    width: string | number,
+    fill: string
+}
 
-const getPath = (iconType: ActionIconTypes, props: any) => {
-    switch(iconType) {
-        case 0:
-            return <path {...props} d={svgIcons.print.d} />;
-        case 1:
-            return <path {...props} d={svgIcons.download.d} />;
+const getPath = (iconType: IconTypes, props: SVGIconInputProps) => {
 
-        default:
-            return <path />;
-    }
+    const type = Object.getOwnPropertyNames(svgIcons)[iconType];
+
+    return <path {...props} d={svgIcons[type].d} />;
 }
 
 interface SVGIconProps {
-    iconType: ActionIconTypes
-    style?: any
+    iconType: IconTypes
+    style?: CSSProperties
     fill?: string
     height?: number | string
     width?: number | string
-    className?: any
+    className?: string
     viewBox?: string
+    preserveAspectRatio?: string
+    onClick?: () => void
 }
 
 const SVGIcon = ({
+    // default
     style = {},
     width = 30,
     fill = "#000",
     className = "",
     height = "100%",
     iconType = null!,
-    viewBox = "0 0 24 24"
+    viewBox = "0 0 24 24",
+    preserveAspectRatio = "none",
+    onClick = () => {}
 }: SVGIconProps) =>
-    <svg
-        width={width}
-        style={style}
-        height={height}
-        viewBox = {viewBox || getViewBox(iconType)}
-        className={className}
-        xmlns="http://www.w3.org/2000/svg"
-        xmlnsXlink="http://www.w3.org/1999/xlink"
-    >
-        {getPath(iconType, { fill })}
-    </svg>;
+    <div onClick={onClick}>
+        <svg
+            width={width}
+            style={style}
+            height={height}
+            viewBox = {viewBox}
+            className={className}
+            preserveAspectRatio={preserveAspectRatio}
+            xmlns="http://www.w3.org/2000/svg"
+            xmlnsXlink="http://www.w3.org/1999/xlink"
+            
+        >
+            {getPath(iconType, { width, fill })}
+        </svg>
+    </div>;
 
 export default SVGIcon;

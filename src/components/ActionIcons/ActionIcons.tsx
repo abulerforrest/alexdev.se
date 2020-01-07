@@ -6,16 +6,23 @@ import SVGIcon from "../SVGIcon";
 
 import styled, { CSSProperties } from "styled-components";
 
-export enum ActionIconTypes {
+export enum IconTypes {
     PRINT,
-    DOWNLOAD
+    DOWNLOAD,
+    S_GITHUB,
+    S_LINKEDIN,
+    S_SOUNDCLOUD,
+    S_BANDCAMP,
+    S_APPLEMUSIC,
+    ICON_ARROWDOWN,
+    ICON_ARROWRIGHT
 }
 
 export type SingleIconState = "default" | "loading";
 export type ActionIconsState = "visible" | "hidden" | "loading";
 
 export interface IActionIcons {
-    type: ActionIconTypes
+    type: IconTypes
     src: () => void
 }
 
@@ -24,14 +31,16 @@ interface IActionIconsProps {
     isLoading: boolean
     state: ActionIconsState
     icons: IActionIcons[],
-    currentIcon: ActionIconTypes
+    iconSize?: number | string,
+    currentIcon: IconTypes
 }
 
 const ActionIcons = observer((props: IActionIconsProps) => {
 
     const defaultProps: Partial<IActionIconsProps> = {
         spinnerColor: "#5fbacd",
-        state: "visible"
+        state: "visible",
+        iconSize: 30
     }
 
     const {
@@ -39,10 +48,12 @@ const ActionIcons = observer((props: IActionIconsProps) => {
         state,
         currentIcon,
         spinnerColor,
-        isLoading
+        isLoading,
+        iconSize
     } = props;
 
     const actionIconsState = state? state: defaultProps.state;
+    const actionIconSize = iconSize? iconSize: defaultProps.iconSize;
     const spinnerLoadColor = spinnerColor? spinnerColor: defaultProps.spinnerColor;
 
     let slideUpTop: any = null;
@@ -111,7 +122,7 @@ const ActionIcons = observer((props: IActionIconsProps) => {
                         {isLoading === true && currentIcon === icon.type? <Spinner size={30} color={spinnerLoadColor} />:
                             <SVGIcon
                                 iconType={icon.type}
-                                width={30}
+                                width={actionIconSize}
                                 fill="#5fbacd"
                             />}
                     </IconWrapper>

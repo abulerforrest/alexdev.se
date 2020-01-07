@@ -1,18 +1,22 @@
-
 import * as React from "react";
 
 import {
-	useObserver,
-	useLocalStore
+	useObserver
 } from "mobx-react";
 
 import styled from "styled-components";
 
-import Logo, { LogoState } from "../../Logo";
+import Logo from "../../Logo";
+
+import SocialIcons from "../../SocialIcons";
 
 import {
 	INavBarController
 } from "../../../interfaces/NavBarController";
+
+import { IconTypes } from "../../ActionIcons";
+
+import { storeContext } from "../../../contexts";
 
 const SplashPageContainer = styled.div`
 	width: 100%;
@@ -21,34 +25,53 @@ const SplashPageContainer = styled.div`
 	flex-basis: 120px;
 	flex-shrink: 1;
 	flex-direction: column;
-	align-content: center;
+	align-items: center;
 	justify-content: center;
 	font-family: 'Volkhov', serif;
 `;
 
-interface INavBarControllerProps {
-	controller: INavBarController
-}
+const SplashPage = () => {
 
-interface ISplashPageProps {
-	controller: INavBarController
-}
-
-const SplashPage = ({controller}: ISplashPageProps) => {
-
-	const ctrl = useLocalStore(() => (controller));
+	const ctrl: INavBarController = React.useContext(storeContext).navBarController;
 
 	return useObserver(() => {
 
-		let logoState: LogoState = "default";
+		let socialIconsDimmed: boolean = false;
 	
 		if(ctrl.values.navBarState.get() === "revealed") {
-			logoState = "dimmed";
+			socialIconsDimmed = true;
 		}
 
 		return (
 			<SplashPageContainer>
-				<Logo logoState={logoState} />
+				<Logo 
+					showLogoText={true}
+				/>
+				<SocialIcons
+					color="#49829D"
+					size={35}
+					dimmed={socialIconsDimmed}
+					icon={[
+						{
+							type: IconTypes.S_GITHUB,
+							href: "https://github.com/abulerforrest"
+						},
+						{
+							type: IconTypes.S_LINKEDIN,
+							href: "https://www.linkedin.com/in/abulerforrest"
+						},
+						{
+							type: IconTypes.S_BANDCAMP,
+							href: "https://zalza.bandcamp.com"
+						},
+						{
+							type: IconTypes.S_SOUNDCLOUD,
+							href: "https://soundcloud.com/zalza"},
+						{
+							type: IconTypes.S_APPLEMUSIC,
+							href: "https://music.apple.com/se/artist/zalza/377696887"}
+					]}
+				/>
 			</SplashPageContainer>
 		);
 	});

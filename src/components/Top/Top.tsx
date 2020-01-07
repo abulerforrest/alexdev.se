@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
-import { useLocalStore, useObserver } from "mobx-react";
 
-import './Top.css';
+import {
+	useObserver
+} from "mobx-react";
 
 import NavBar from "../NavBar";
 
@@ -13,17 +14,15 @@ import {
 		INavBarController
 } from "../../interfaces/NavBarController";
 
+import {
+	storeContext
+} from "../../contexts";
+
 export type NavBarState = "default" | "revealed" | "collapsed";
 
-interface ITopProps {
-	controller: INavBarController
-}
+const Top = () => {
 
-const Top = ({controller}: ITopProps) => {
-
-	const fetchController = controller;
-	
-	controller = useLocalStore(() => (fetchController));
+	const ctrl: INavBarController = React.useContext(storeContext).navBarController;
 
 	const myRef: React.RefObject<HTMLDivElement> = React.createRef<HTMLDivElement>();
 
@@ -63,6 +62,7 @@ const Top = ({controller}: ITopProps) => {
 		right: 130px;
 		padding: 18px;
 		font-size: 20px;
+		font-weight: 700;
 		white-space: nowrap;
 		position: absolute;
 		border-radius: 8px;
@@ -97,18 +97,18 @@ const Top = ({controller}: ITopProps) => {
 
 	const handleClickOutside = (e: any) : void => {
 
-		if (!myRef.current!.contains(e.target) && controller.values.navBarState.get() !== "default") {
-			controller.actions.hideNav();
+		if (!myRef.current!.contains(e.target) && ctrl.values.navBarState.get() !== "default") {
+			ctrl.actions.hideNav();
 		}
 	};
 
 	const toggleShowNav = () : void => {
-		controller.actions.toggleShowNav();
+		ctrl.actions.toggleShowNav();
 	}
 
 	const renderClickMe = (text: string) : React.ReactNode => {
 
-		if(controller.values.navBarState.get() === "default" || controller.values.navBarState.get() === "collapsed") {
+		if(ctrl.values.navBarState.get() === "default" || ctrl.values.navBarState.get() === "collapsed") {
 
 			return (
 				<ClickMeText>
@@ -119,7 +119,23 @@ const Top = ({controller}: ITopProps) => {
 
 	}
 
-	const defaultText = "Click me! :)";
+	const handleText = (pageTitle: string) => {
+		const title: string = pageTitle.toLowerCase();
+		let textOutput: string = "Yay!";
+		
+		if(title === "view my cv/resumé") {
+			textOutput = `Nice going!`;
+		}
+
+		return textOutput;
+	}
+
+	const pageId = ctrl.values.currentPage.get().title;
+	const pageTitle = ctrl.values.currentPage.get().title;
+
+	const showNewText: boolean = pageId !== null && pageTitle !== null;
+
+	const defaultText = showNewText? handleText(pageTitle): "Click me!";
 
 	return useObserver(() => {
 
@@ -131,7 +147,7 @@ const Top = ({controller}: ITopProps) => {
 						style={{zIndex: 5}}
 						ref={myRef}
 					>	
-						<NavBar controller={controller} />
+						<NavBar />
 						<ProfilePic
 							onClick={() => toggleShowNav()}
 						/>

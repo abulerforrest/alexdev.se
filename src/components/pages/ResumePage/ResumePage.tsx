@@ -12,7 +12,7 @@ import { assets } from "./internal/assets";
 
 import ResumePageController from "../../../controllers/ResumePageController";
 
-import ActionIcons, { ActionIconTypes, ActionIconsState } from "../../ActionIcons";
+import ActionIcons, { IconTypes, ActionIconsState } from "../../ActionIcons";
 
 import PageLoader from "../../PageLoader";
 
@@ -467,12 +467,12 @@ const renderControlIcons = (controller: IResumePageController) => {
 
 	const icons = [
 		{
-			type: ActionIconTypes.PRINT,
-			src: () => actions.printPDF(ActionIconTypes.PRINT)
+			type: IconTypes.PRINT,
+			src: () => actions.printPDF(IconTypes.PRINT)
 		},
 		{
-			type: ActionIconTypes.DOWNLOAD,
-			src: () => actions.downloadPDF("CV_Resume_Alexander_Buler_Forrest", ActionIconTypes.DOWNLOAD)
+			type: IconTypes.DOWNLOAD,
+			src: () => actions.downloadPDF("CV_Resume_Alexander_Buler_Forrest", IconTypes.DOWNLOAD)
 		}
 	]
 
@@ -482,6 +482,7 @@ const renderControlIcons = (controller: IResumePageController) => {
 			spinnerColor="#5fbacd"
 			state={actionIconsState}
 			isLoading={values.isLoadingPDF.get()}
+			iconSize={30}
 			currentIcon={values.currentActionIcon.get()}
 		/>
 	);
@@ -862,7 +863,7 @@ const Resume = () => {
 
 	const fetchController: IResumePageController = ResumePageController();
 
-	const ctrl = useLocalStore(() => (fetchController))
+	const ctrl = useLocalStore(() => (fetchController));
 
 		React.useEffect(
 			() =>

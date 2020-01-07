@@ -1,24 +1,47 @@
-import React from 'react';
+import React from "react";
 
-import { useLocalStore } from 'mobx-react';
+import { useLocalStore } from "mobx-react";
 
 import { 
     PDFStore,
     IPDFStore
-} from '../stores/PDFStore';
+} from "../stores/PDFStore";
 
-export const pdfStoreContext = React.createContext<IPDFStore>(null!);
+import { 
+    DataStore
+} from "../stores/DataStore";
+
+import {
+    INavBarController
+} from "../interfaces/NavBarController";
+
+import NavBarController from "../controllers/NavBarController";
+
+interface IStoreContext {
+    pdfStore: IPDFStore
+    navBarController: INavBarController
+}
+
+export const storeContext = React.createContext<IStoreContext>(null!);
 
 export const StoreProvider: React.FC = ({ children }) => {
+
+    const dataStore = useLocalStore(DataStore);
+
+    const navBar: INavBarController = NavBarController(dataStore);
     
-    const store = useLocalStore(PDFStore);
+    const pdfStore = useLocalStore(PDFStore);
+
+    const navBarController = useLocalStore(() => navBar);
 
     return (
-        <pdfStoreContext.Provider value={store}>
-            {children}
-        </pdfStoreContext.Provider>
+        <storeContext.Provider value={{
+            pdfStore,
+            navBarController
+        }}>
+            
+                {children}           
+        </storeContext.Provider>
     );
 
 };
-
-export default StoreProvider;

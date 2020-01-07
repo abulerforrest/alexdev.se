@@ -53,6 +53,7 @@ export const defaultTheme = {
 	animationSlideOutTop: css`${keyframeAnimations.slideInTop} 1s reverse forwards`,
 	animationBorderGrow: css`${keyframeAnimations.borderGrow} 0.2s ease-in forwards`,
 	animationSpin: css`${keyframeAnimations.spin} 4s linear infinite;`,
+	animationSlideInLeft: css`${keyframeAnimations.slideInLeft} 0.2s ease-in forwards;`,
 
 	// text shadows
 	primaryTextShadow: css`
@@ -88,4 +89,6 @@ export const defaultTheme = {
 	// border styles
 	borderBottomIdle: "4px solid rgba(255, 255, 255, 0.2)",
 	borderBottomActive: "4px solid rgba(255, 255, 255, 0.8)",
+	borderBottomIdle2: "2px solid rgba(255, 255, 255, 0.2)",
+	borderBottomActive2: "2px solid rgba(255, 255, 255, 0.8)"
 };
