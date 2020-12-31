@@ -6,6 +6,11 @@ import SVGIcon from "../SVGIcon";
 
 import styled, { CSSProperties } from "styled-components";
 
+import { device } from "../../themes/mediaqueries";
+
+import { isMobileDevice } from "../../internal/utils";
+
+
 export enum IconTypes {
     PRINT,
     DOWNLOAD,
@@ -52,8 +57,11 @@ const ActionIcons = observer((props: IActionIconsProps) => {
         iconSize
     } = props;
 
-    const actionIconsState = state? state: defaultProps.state;
-    const actionIconSize = iconSize? iconSize: defaultProps.iconSize;
+    const actionIconsState = state? state: defaultProps.state; 
+
+    let actionIconSize = iconSize? iconSize: defaultProps.iconSize;
+    if(isMobileDevice()) actionIconSize = 20;
+
     const spinnerLoadColor = spinnerColor? spinnerColor: defaultProps.spinnerColor;
 
     let slideUpTop: any = null;
@@ -61,7 +69,7 @@ const ActionIcons = observer((props: IActionIconsProps) => {
     const ControlIconsWrapper = styled.div`
         ${props => actionIconsState !== "loading"? 
             slideUpTop = props.theme.animationSlideOutTop: "none"};
-
+        z-index: 15000;
         display: flex;
         flex-direction: row;
         align-items: space-evenly;
@@ -83,6 +91,31 @@ const ActionIcons = observer((props: IActionIconsProps) => {
             animation: ${props => props.theme.animationBorderGrow};
             animation-delay: 0.5s;
         }
+        @media ${device.mobileS2} {
+            top: -45px;
+            width: 70px;
+            &::after {
+                top: 41px;
+            }
+        }
+
+        @media ${device.mobileS3} {
+            top: -45px;
+            width: 70px;
+            &::after {
+                top: 41px;
+            }
+        }
+
+        @media ${device.mobileS} {
+            top: -85px;
+            width: 70px;
+            &::after {
+                top: 41px;
+            }
+
+        }
+
     `;
 
     const IconWrapper = styled.div`
@@ -98,6 +131,7 @@ const ActionIcons = observer((props: IActionIconsProps) => {
         &:hover {
             background-color: #e9e9e9;
         }
+
     `;
 
 		return (

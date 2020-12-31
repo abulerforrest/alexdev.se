@@ -31,6 +31,8 @@ import {
 	siblingStatusTypes
 } from "../../controllers/NavBarController/NavBarController";
 
+import { device } from "../../themes/mediaqueries";
+
 const tag = ({ className, children }: HTMLDivElement | any) => (
 	<div className={className}>{children}</div>
 );
@@ -53,11 +55,17 @@ const Root = styled.div`
 	display: flex;
 	align-items: flex-start;
 	justify-content: space-evenly;
-	min-width: 620px;
 	padding-left: 200px;
 	margin: 30px 105px 0 0;
 	text-transform: uppercase;
 
+	@media ${device.mobileS} {
+		margin: 0;
+	}
+
+	@media ${device.desktopS} {
+		margin-top: 10px;
+	}
 `;
 
 const DropDown = styled.ul`
@@ -66,6 +74,14 @@ const DropDown = styled.ul`
 	width: 240px;
 	cursor: pointer;
 	padding: 10px 0 30px 0;
+
+	@media ${device.desktopS} {
+		width: 200px;
+	}
+
+	@media ${device.mobileS} {
+		width: 180px;
+	}
 `;
 
 const Siblings = styled.div`
@@ -78,6 +94,18 @@ const Tags = styled.div`
 
 const MenuItem = styled.li`
 	margin-right: 40px;
+
+	@media ${device.mobileS} {
+		margin-right: 13px;
+	}
+
+	@media ${device.desktopS} {
+		margin-right: 10px;
+	}
+
+	@media ${device.desktopL} {
+		margin-right: 15px;
+	}
 `;
 
 const SiblingMenuItem = styled.div`
@@ -87,6 +115,15 @@ const SiblingMenuItem = styled.div`
 	height: 20px;
 	font-size: 14px;
 	margin-top: 10px;
+
+	@media ${device.desktopS} {
+		font-size: 13px;
+	}
+
+	@media ${device.mobileS} {
+		font-size: 12px;
+	}
+
 `;
 
 const SiblingWrapper = styled(siblingWrapper)`
@@ -183,7 +220,31 @@ const MenuLink = styled.div`
 	ul {
 		font-size: 18px;
 		text-shadow: none;
+
+		@media ${device.desktopS} {
+			font-size: 12px;
+		}
+
+		@media ${device.mobileS} {
+			font-size: 12px;
+		}
 	}
+
+	@media ${device.desktopS} {
+		font-size: 25px;
+		height: 35px;
+	}
+
+	@media ${device.desktopXS} {
+		font-size: 22px;
+		height: 35px;
+	}
+
+	@media ${device.mobileS} {
+		font-size: 17px;
+		height: 30px;
+	}
+
 `;
 
 const StyledArrow = styled.span`
@@ -254,6 +315,15 @@ const SubMenuItem = styled.li`
 		opacity: 1;
 		transition: opacity 0.1s ease-in-out;
 	}
+
+	@media ${device.desktopS} {
+		font-size: 16px;
+	}
+
+	@media ${device.mobileS} {
+		font-size: 16px;
+	}
+
 `;
 
 const Nav = styled.ul`
@@ -262,6 +332,22 @@ const Nav = styled.ul`
 	list-style-type: none;
 	position: absolute;
 	color: ${(props) => props.theme.primaryColor};
+
+	@media ${device.desktopL} {
+		right: 77px;
+	}
+
+	@media ${device.desktopS} {
+		right: 47px;
+	}
+
+	@media ${device.desktopXS} {
+		right: 37px;
+	}
+
+	@media ${device.mobileS} {
+		right: 42px;
+	}
 
 	li:hover ul {
 		display: flex;
@@ -283,6 +369,8 @@ const Nav = styled.ul`
 		pointer-events: none;
 		animation: ${(props) => props.theme.animationCollapse};
 	}
+
+
 `;
 
 const renderSiblings = (siblings: IMenuSiblings[], ctrl: INavBarController, menuitemCtrl: IMenuItemController) => {

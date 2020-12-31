@@ -69,7 +69,7 @@ const ResumePageController = (): IResumePageController => {
 
     const downloadPDF = action(async (filename: string, type: IconTypes): Promise<void> => {
         observableValues.currentActionIcon.set(type);
-
+  
         try {
             await getPDFBlob().then(response => {
                 let url = window.URL.createObjectURL(response);

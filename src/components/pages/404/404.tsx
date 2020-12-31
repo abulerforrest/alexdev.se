@@ -83,7 +83,7 @@ const PageNotFound = observer(({
 					/>
                 </TextContainer>
 				<SocialIcons
-					color="#49829D"
+					color="#3d718a"
 					size={35}
 					dimmed={isNavBarVisible}
 					icon={[

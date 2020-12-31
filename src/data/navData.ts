@@ -25,7 +25,7 @@ export const menuItems: IMenuItems = [
 							{title: "js", color: "#F88D56"},
 							{title: "github", color: "#F88D56"}
 						],
-						href: "/wordrazer"
+						href: "https://github.com/abulerforrest/wordrazer"
 					},
 					{ 
 						id: 1,
@@ -38,7 +38,7 @@ export const menuItems: IMenuItems = [
 							{title: "express", color: "#F88D56"},
 							{title: "github", color: "#F88D56"}
 						],
-						href: "/retrocomputer-words-api"
+						href: "https://github.com/abulerforrest/retrocomputer-words-api"
 					}
 				]
 			}
@@ -56,15 +56,6 @@ export const menuItems: IMenuItems = [
 				title: "View my CV/Resumé",
 				type: "child",
 				href: "/resume",
-				items: []
-			},
-			{
-				id: 1,
-				rootID: 1,
-				parentID: 1,
-				title: "test",
-				type: "child",
-				href: "",
 				items: []
 			}
 		],
@@ -91,7 +82,7 @@ export const menuItems: IMenuItems = [
 						tags: [
 							{title: "Retrowave", color: "#F519D5"}
 						],
-						href: "/out-of-memory"
+						href: "https://open.spotify.com/album/0AmWzEjEsncdcao2fhgZEi"
 					},
 					{
 						title: "Superposition",
@@ -102,7 +93,7 @@ export const menuItems: IMenuItems = [
 						tags: [
 							{title: "8-bit", color: "#F88D56"}
 						],
-						href: "http://www.google.com"
+						href: "https://open.spotify.com/album/4IIWMBurkg55ICSK6l3N2E"
 					},
 					{
 						title: "Back to the chipland",
@@ -113,28 +104,50 @@ export const menuItems: IMenuItems = [
 						tags: [
 							{title: "8-bit", color: "#F88D56"}
 						],
-						href: "/back-to-the-chipland"
+						href: "https://open.spotify.com/album/4TPBVt5qwpe1wYELvmRGrl"
 					}
 				]
 			},
 			{
-				id: 1,
+				id: 0,
 				rootID: 2,
-				parentID: 0,
-				title: "Soundtracks",
+				parentID: 2,
+				title: "EPs",
 				type: "child",
 				href: "",
 				items: [
 					{
-						title: "12345678",
+						title: "Zalza vs. The World 1",
 						id: 0,
 						rootID: 2,
-						parentID: 1,
+						parentID: 0,
 						type: "sibling",
 						tags: [
 							{title: "8-bit", color: "#F88D56"}
 						],
-						href: ""
+						href: "https://open.spotify.com/album/7pWx1v7B8aDhp9jvDZKZkU"
+					},
+					{
+						title: "Zalza vs. The World 2",
+						id: 0,
+						rootID: 2,
+						parentID: 0,
+						type: "sibling",
+						tags: [
+							{title: "8-bit", color: "#F88D56"}
+						],
+						href: "https://open.spotify.com/album/466RvAB4NohJ8pTyCUiv1b"
+					},
+					{
+						title: "Zalza vs. The World 3",
+						id: 2,
+						rootID: 2,
+						parentID: 0,
+						type: "sibling",
+						tags: [
+							{title: "8-bit", color: "#F88D56"}
+						],
+						href: "https://open.spotify.com/album/3LY4oAqavJbael8afI29Rj"
 					}
 				]
 			}
@@ -145,7 +158,7 @@ export const menuItems: IMenuItems = [
 		id: 3,
 		type: "parent",
 		items: [
-			{
+/*			{
 				id: 0,
 				rootID: 3,
 				parentID: 3,
@@ -156,19 +169,20 @@ export const menuItems: IMenuItems = [
 					id: 0,
 					rootID: 3,
 					parentID: 0,
-					title: "send me an email",
+					title: "My background",
 					type: "sibling",
 					tags: [],
 					href: ""
 				}]
 			},
+*/
 			{
-				id: 1,
+				id: 0,
 				rootID: 3,
 				parentID: 3,
-				title: "Disclaimer",
+				title: "Drop me an email",
 				type: "child",
-				href: "",
+				href: "alexander@buler-forrest.se",
 				items: []
 			}
 		],

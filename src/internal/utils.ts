@@ -10,3 +10,7 @@ export const isURL = (str: string): boolean => {
 
 	return isURL;
 }
+
+export const isMobileDevice = () => {
+	return (typeof window.orientation !== "undefined") || (navigator.userAgent.indexOf('IEMobile') !== -1);
+}

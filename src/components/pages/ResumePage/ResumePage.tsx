@@ -8,6 +8,7 @@ import {
 } from "mobx-react";
 
 import styled from "styled-components";
+
 import { assets } from "./internal/assets";
 
 import ResumePageController from "../../../controllers/ResumePageController";
@@ -19,6 +20,7 @@ import PageLoader from "../../PageLoader";
 import {
 	IResumePageController
 } from "../../../interfaces/ResumePageController";
+import { device } from "../../../themes/mediaqueries";
 
 const Link = ({ className, children, href }: HTMLAnchorElement | any) => (
 	<a className={className} href={href}>
@@ -52,8 +54,21 @@ const ResumeContainer = styled.div`
 
 const LeftSide = styled.div`
 	width: 30px;
-	height: ${props => props.theme.resume.height};
+	min-height: ${props => props.theme.resume.height};
 	background-color: ${props => props.theme.resume.palette.bgColorGrey};
+
+	@media ${device.tabletP} {  
+		width: 15px;
+	}
+
+	@media ${device.mobileL} {  
+		width: 15px;
+	}
+
+	@media ${device.mobileS} {  
+		width: 10px;
+	}
+
 `;
 
 const LeftGreen = styled.div`
@@ -67,9 +82,24 @@ const RightSide = styled.div`
 	display: flex;
 	flex-direction: column;
 	justify-content: flex-start;
-	height: ${props => props.theme.resume.height};
 	width: ${props => props.theme.resume.rightSideWidth};
 	background-color: ${props => props.theme.resume.palette.bgColorGrey};
+
+	@media ${device.tabletP} {  
+		width: 270px;
+	}
+
+	@media ${device.mobileL} {
+		width: 250px;
+	}
+
+	@media ${device.mobileS} {
+		width: 140px;
+	}
+
+	@media ${device.mobileS2} {
+		width: 110px;
+	}
 `;
 
 const StyledIcon = styled(span)`
@@ -77,6 +107,24 @@ const StyledIcon = styled(span)`
 	height: ${props => props.size}
 	background-size: ${props => props.size}
 	background-image: url(${props => props.icon});
+
+	@media ${device.tabletP} {  
+		height: 50px;
+		width: 50px;
+		background-size: 50px;
+	}
+
+	@media ${device.mobileL} {  
+		height: 50px;
+		width: 50px;
+		background-size: 50px;
+	}
+
+	@media ${device.mobileS} {  
+		height: 30px;
+		width: 30px;
+		background-size: 30px;
+	}
 `;
 
 const FollowMeLink = styled(Link)`
@@ -86,16 +134,65 @@ const FollowMeLink = styled(Link)`
 	text-transform: lowercase;
 	color: ${props => props.theme.resume.linkColor};
 	font-family: ${props => props.theme.resume.primaryFont};
+
+	@media ${device.tabletP} {  
+		margin-left: 15px;
+		font-size: 14px;
+	}
+
+	@media ${device.mobileL} {  
+		margin-left: 15px;
+		font-size: 14px;
+	}
+
+	@media ${device.mobileS} {  
+		font-size: 11px;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		max-width: 80px;
+		margin-left: 10px;
+	}
+
+	@media ${device.mobileS2} {  
+		font-size: 10px;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		max-width: 80px;
+		margin-left: 10px;
+	}
 `;
 
 const ProfilePicture = styled.div`
 	margin-top: 55px;
 	align-self: center;
-	width: ${props => props.theme.resume.profilePicSize};
-	height: ${props => props.theme.resume.profilePicSize};
+	width: 300px;
+	height: 300px;
 	background-repeat: no-repeat;
 	background-image: url(${assets.images.profilePic});
-	background-size: ${props => props.theme.resume.profilePicSize};
+	background-size: contain;
+
+	@media ${device.tabletP} {  
+		width: 200px;
+		height: 200px;
+	}
+
+	@media ${device.mobileL} {  
+		width: 200px;
+		height: 200px;
+	}
+
+	@media ${device.mobileS} {  
+		width: 130px;
+		height: 130px;
+	}
+
+	@media ${device.mobileS2} {  
+		width: 110px;
+		height: 110px;
+	}
+
 `;
 
 const LogoSmall = styled.div`
@@ -109,6 +206,51 @@ const LogoSmall = styled.div`
 	width: ${props => props.theme.resume.logoSmallSize};
 	height: ${props => props.theme.resume.logoSmallSize};
 	background-size: ${props => props.theme.resume.logoSmallSize};
+
+	@media ${device.laptop} {  
+		margin: -85px 0 0 570px;
+	}
+
+	@media ${device.tabletP} {
+		width: 55px;
+		height: 55px;
+		position: absolute;
+		background-size: 55px 55px;
+		margin: -70px 0 0 340px;
+	}
+
+	@media ${device.mobileL} {
+		width: 45px;
+		height: 45px;
+		position: absolute;
+		background-size: 45px 45px;
+		margin: -60px 0 0 320px;
+	}
+
+	@media ${device.mobileS} {
+		width: 35px;
+		height: 35px;
+		position: absolute;
+		background-size: 35px 35px;
+		margin: -40px 0 0 155px;
+	}
+
+	@media ${device.mobileS2} {
+		width: 30px;
+		height: 30px;
+		position: absolute;
+		background-size: 30px 30px;
+		margin: -36px 0 0 135px;
+	}
+
+	@media ${device.mobileS3} {
+		width: 35px;
+		height: 35px;
+		background-size: 35px 35px;
+		position: absolute;
+		margin: -46px 0 0 200px;
+	}
+
 `;
 
 const ContactInfoRow = styled.div`
@@ -116,7 +258,17 @@ const ContactInfoRow = styled.div`
 	flex-direction: row;
 	height: 50px;
 	padding-top: 30px;
-	padding-left: 40px;
+	padding-left: 25px;
+
+	@media ${device.mobileS} {  
+		padding-left: 15px;
+	}
+
+	@media ${device.mobileS2} {  
+		padding-left: 10px;
+		padding-top: 25px;
+	}
+
 `;
 
 const ContactInfoIcon = styled(span)`
@@ -130,6 +282,22 @@ const ContactInfoIcon = styled(span)`
 	background-repeat: no-repeat;
 	background-image: url(${props => props.icon});
 	background-color: ${props => props.theme.white};
+
+	@media ${device.tabletP} {  
+		margin-right: 20px;
+		width: 40px;
+		height: 40px;
+	}
+
+	@media ${device.mobileL} {  
+		margin-right: 15px;
+		width: 35px;
+		height: 35px;
+	}
+
+	@media ${device.mobileS} {  
+		display: none;
+	}
 `;
 
 const ContactInfoWrapper = styled.div`
@@ -144,6 +312,24 @@ const ContactInfoHeading = styled.div`
 	text-transform: uppercase;
 	font-family: ${props => props.theme.resume.primaryFont};
 	color: ${props => props.theme.resume.palette.darkBlack};
+
+	@media ${device.tabletP} {  
+		font-size: 15px;
+	}
+
+	@media ${device.mobileL} {  
+		font-size: 15px;
+	}
+
+	@media ${device.mobileS} {  
+		margin-bottom: 5px;
+		font-size: 11px;
+	}
+
+	@media ${device.mobileS2} {  
+		margin-bottom: 5px;
+		font-size: 10px;
+	}
 `;
 
 const ContactInfoBread = styled.div`
@@ -151,6 +337,24 @@ const ContactInfoBread = styled.div`
 	line-height: 24px;
 	color: ${props => props.theme.resume.palette.greyAlt2};
 	font-family: ${props => props.theme.resume.primaryFont};
+
+	@media ${device.tabletP} {  
+		font-size: 13px;
+	}
+
+	@media ${device.mobileL} {  
+		font-size: 13px;
+	}
+
+	@media ${device.mobileS} {  
+		line-height: 16px;
+		font-size: 12px;
+	}
+
+	@media ${device.mobileS2} {  
+		line-height: 15px;
+		font-size: 10px;
+	}
 `;
 
 const EducationRow = styled.div`
@@ -158,6 +362,22 @@ const EducationRow = styled.div`
 	flex-direction: column;
 	margin: 30px 0 25px 40px;
 	color: ${props => props.theme.resume.palette.greyAlt};
+
+	@media ${device.tabletP} {  
+		margin-left: 30px;
+	}
+
+	@media ${device.mobileL} {  
+		margin-left: 30px;
+	}
+
+	@media ${device.mobileS} {  
+		margin-left: 15px;
+	}
+
+	@media ${device.mobileS2} {  
+		margin: 20px 0 25px 10px;
+	}
 `;
 
 const EducationLabel = styled.div`
@@ -167,6 +387,26 @@ const EducationLabel = styled.div`
 	text-transform: uppercase;
 	color: ${props => props.theme.resume.palette.darkBlack};
 	font-family: ${props => props.theme.resume.primaryFont};
+
+	@media ${device.tabletP} {  
+		font-size: 15px;
+	}
+
+	@media ${device.mobileL} {  
+		font-size: 14px;
+		max-width: 190px;
+	}
+
+	@media ${device.mobileS} {  
+		font-size: 12px;
+		max-width: 100px;
+	}
+
+	@media ${device.mobileS2} {  
+		font-size: 11px;
+		max-width: 80px;
+	}
+
 `;
 
 const EducationSubLabel = styled.div`
@@ -175,6 +415,26 @@ const EducationSubLabel = styled.div`
 	text-transform: uppercase;
 	color: ${props => props.theme.resume.palette.greyAlt2};
 	font-family: ${props => props.theme.resume.primaryFont};
+
+	@media ${device.tabletP} {  
+		font-size: 14px;
+		max-width: 200px;
+	}
+
+	@media ${device.mobileL} {  
+		font-size: 14px;
+		max-width: 200px;
+	}
+
+	@media ${device.mobileS} {  
+		font-size: 11px;
+		max-width: 110px;
+	}
+
+	@media ${device.mobileS2} {  
+		font-size: 10px;
+		max-width: 90px;
+	}
 `;
 
 const EducationDescription = styled.div`
@@ -182,24 +442,103 @@ const EducationDescription = styled.div`
 	font-style: italic;
 	color: ${props => props.theme.resume.palette.grey};
 	font-family: ${props => props.theme.resume.primaryFont};
+
+	@media ${device.tabletP} {  
+		font-size: 14px;
+	}
+
+	@media ${device.mobileL} {  
+		font-size: 14px;
+		max-width: 200px;
+	}
+
+	@media ${device.mobileS} {  
+		font-size: 11px;
+		width: 100px;
+	}
+
+	@media ${device.mobileS2} {  
+		font-size: 10px;
+		max-width: 90px;
+	}
 `;
 
 const EducationDescriptionExtra = styled.div`
 	font-size: 17px;
 	font-style: italic;
 	font-family: ${props => props.theme.resume.primaryFont};
+
+	@media ${device.tabletP} {  
+		font-size: 14px;
+		max-width: 220px;
+	}
+
+	@media ${device.mobileL} {  
+		font-size: 14px;
+		max-width: 220px;
+	}
+
+	@media ${device.mobileS} {  
+		font-size: 11px;
+		max-width: 100px;
+	}
+
+	@media ${device.mobileS2} {  
+		font-size: 10px;
+		max-width: 90px;
+	}
 `;
 
 const ExpertiseRow = styled.div`
 	display: flex;
 	flex-direction: column;
 	margin: 30px 0 25px 40px;
+
+	@media ${device.tabletP} {  
+		margin: 30px 0 25px 40px;
+	}
+
+	@media ${device.mobileL} {  
+		margin: 30px 0 25px 40px;
+	}
+
+	@media ${device.mobileS} {  
+		margin: 25px 0 15px 15px;
+	}
+
+	@media ${device.mobileS2} {  
+		margin: 25px 0 20px 10px;
+	}
 `;
 
 const ExpertiseLabel = styled.li`
 	font-size: 17px;
 	color: ${props => props.theme.resume.linkColor}
 	font-family: ${props => props.theme.resume.primaryFont};
+
+	@media ${device.tabletP} {  
+		font-size: 15px;
+	}
+
+	@media ${device.mobileL} {  
+		font-size: 15px;
+	}
+
+	@media ${device.mobileS} {  
+		font-size: 11px;
+		max-width: 100px;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;		
+	}
+
+	@media ${device.mobileS2} {  
+		font-size: 10px;
+		max-width: 90px;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;		
+	}
 `;
 
 const RightHeading = styled.div`
@@ -217,17 +556,82 @@ const RightHeading = styled.div`
 	color: ${props => props.theme.resume.palette.blackAlt2};
 	font-family: ${props => props.theme.resume.secondaryFont};
 	background-color: ${props => props.theme.resume.palette.softBlue};
+
+	@media ${device.tabletP} {
+		width: 231px;
+		font-size: 20px;
+		height: 65px;
+	}
+
+	@media ${device.mobileL} {
+		width: 211px;
+		font-size: 20px;
+		height: 65px;
+	}
+
+	@media ${device.mobileS} {
+		width: 126px;
+		padding-left: 15px;
+		font-size: 14px;
+		height: 65px;
+		letter-spacing: 3.5px;
+	}
+
+	@media ${device.mobileS2} {
+		width: 101px;
+		padding-left: 10px;
+		font-size: 11px;
+		height: 45px;
+		letter-spacing: 3.5px;
+	}
 `;
 
 const SkillsWrapper = styled.div`
 	display: flex;
 	flex-direction: column;
 	margin: 40px 0 0 40px;
+
+	@media ${device.tabletP} {
+		margin-left: 25px;
+	}
+
+	@media ${device.mobileL} {
+		margin-left: 25px;
+	}
+
+	@media ${device.mobileS} {
+		margin: 20px 0 0 25px;
+	}
+
+	@media ${device.mobileS} {
+		margin: 10px 0 0 15px;
+	}
 `;
 
 const SkillsLabel = styled.p`
 	text-transform: uppercase;
 	font-family: ${props => props.theme.resume.primaryFont};
+
+	@media ${device.tabletP} {  
+		font-size: 13px;
+	}
+
+	@media ${device.mobileL} {
+		font-size: 13px;
+	}
+
+	@media ${device.mobileS} {
+		font-size: 10px;
+		width: 100px;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+
+
+	@media ${device.mobileS2} {
+		font-size: 9px;
+	}
 `;
 
 const Meter = styled.div`
@@ -235,6 +639,22 @@ const Meter = styled.div`
 	width: 380px;
 	margin: 0 0 20px 0;
 	background-color: ${props => props.theme.white};
+
+	@media ${device.tabletP} {  
+		width: 220px;
+	}
+
+	@media ${device.mobileL} {
+		width: 200px;
+	}
+
+	@media ${device.mobileS} {
+		width: 110px;
+	}
+
+	@media ${device.mobileS2} {
+		width: 70px;
+	}
 `;
 
 const MeterValue = styled(div)`
@@ -246,8 +666,39 @@ const MeterValue = styled(div)`
 const MainContent = styled.div`
 	display: flex;
 	flex-direction: column;
-	width: 750px;
+	max-width: 750px;
 	margin: 90px 40px 0 40px;
+
+	@media ${device.laptop} {  
+		max-width: 650px;
+	}
+
+	@media ${device.tabletP} {  
+		max-width: 400px;
+		margin: 90px 20px 0 20px;
+	}
+
+	@media ${device.mobileL} {
+		max-width: 370px;
+		margin: 90px 20px 0 20px;
+	}
+
+	@media ${device.mobileS} {
+		max-width: 190px;
+		margin: 90px 20px 0 10px;
+	}
+
+	@media ${device.mobileS2} {
+		max-width: 180px;
+		margin: 50px 10px 0 10px;
+	}
+
+	@media ${device.mobileS3} {
+		max-width: 240px;
+		margin: 50px 10px 0 10px;
+	}
+
+}
 `;
 
 const PositionHeading = styled.h1`
@@ -259,14 +710,66 @@ const PositionHeading = styled.h1`
 	color: ${props => props.theme.resume.palette.black};
 	border-bottom: 1px solid ${props => props.theme.black};
 	font-family: ${props => props.theme.resume.primaryFont};
+
+	@media ${device.tabletP} {  
+		font-size: 17px;
+		max-width: 300px;
+	}
+
+	@media ${device.mobileL} {
+		font-size: 17px;
+		max-width: 300px;
+	}
+
+	@media ${device.mobileS} {
+		font-size: 13px;
+		max-width: 110px;
+		line-height: 18px;
+	}
+
+	@media ${device.mobileS2} {
+		font-size: 13px;
+		max-width: 100px;
+		line-height: 18px;
+	}
+
+	@media ${device.mobileS3} {
+		font-size: 16px;
+		max-width: 130px;
+	}
+
 `;
 
 const TextBlob = styled.div`
-	width: 710px;
+	max-width: 710px;
 	font-size: 16px;
-	word-spacing: 4px;
+	word-spacing: 2px;
 	line-height: 30px;
 	font-family: ${props => props.theme.resume.primaryFont};
+
+	@media ${device.laptop} {  
+		max-width: 610px;
+	}
+
+	@media ${device.tabletP} {  
+		font-size: 13px;
+		line-height: 25px;
+	}
+
+	@media ${device.mobileL} {
+		font-size: 13px;
+		line-height: 25px;
+	}
+
+	@media ${device.mobileS} {
+		font-size: 11px;
+		line-height: 22px;
+	}
+
+	@media ${device.mobileS2} {
+		font-size: 10px;
+		line-height: 20px;
+	}
 `;
 
 const InfoSquare = styled.div`
@@ -281,6 +784,52 @@ const InfoSquare = styled.div`
 	color: ${props => props.theme.resume.palette.lightBlue};
 	font-family: ${props => props.theme.resume.secondaryFont};
 	background-color: ${props => props.theme.resume.palette.softBlue};
+
+	@media ${device.laptop} {  
+		max-width: 590px;
+		padding: 30px 0 30px 60px; 
+	}
+
+	@media ${device.tabletP} {  
+		line-height: 60px;
+		height 260px;
+		font-size: 40px;
+		letter-spacing: 12px;
+		max-width: 370px;
+		padding: 20px 0 20px 30px; 
+		word-wrap: break-word;
+	}
+
+	@media ${device.mobileL} {
+		line-height: 60px;
+		height 260px;
+		font-size: 33px;
+		letter-spacing: 12px;
+		max-width: 340px;
+		padding: 20px 0 20px 30px; 
+		word-wrap: break-word;
+	}
+
+	@media ${device.mobileS} {
+		line-height: 45px;
+		height 220px;
+		font-size: 23px;
+		letter-spacing: 5px;
+		margin-bottom: 15px;
+		max-width: 180px;
+		padding: 10px 0 10px 15px; 
+		word-wrap: break-word;
+	}
+	@media ${device.mobileS2} {
+		line-height: 35px;
+		height 200px;
+		font-size: 22px;
+		letter-spacing: 4px;
+		margin-bottom: 20px;
+		max-width: 160px;
+		padding: 10px 0 5px 15px; 
+		word-wrap: break-word;
+	}
 `;
 
 const PositionHeadingContainer = styled.div`
@@ -293,7 +842,7 @@ const PositionDateExtension = styled.div`
 	align-items: center;
 	width: 300px;
 	height: 30px;
-	font-size: 12px;
+	font-size: 10px;
 	margin-left: auto;
 	position: relative;
 	white-space: nowrap;
@@ -301,6 +850,17 @@ const PositionDateExtension = styled.div`
 	border-top: 1px solid ${props => props.theme.black};
 	border-bottom: 1px solid ${props => props.theme.black};
 	font-family: ${props => props.theme.resume.primaryFont};
+
+
+	@media ${device.mobileS2} {  
+		font-size: 7px;
+		height: 26px;
+	}
+
+	@media ${device.mobileS} {  
+		font-size: 7px;
+		height: 26px;
+	}
 `;
 
 const PositionDate = styled.div`
@@ -308,8 +868,7 @@ const PositionDate = styled.div`
 	align-items: center;
 	width: 20px;
 	height: 30px;
-	right: 102px;
-	font-size: 12px;
+	right: 58px;
 	position: relative;
 	padding-left: 10px;
 	margin: 10px 0 0 auto;
@@ -319,19 +878,61 @@ const PositionDate = styled.div`
 	border-top: 1px solid ${props => props.theme.black};
 	border-left: 2px solid ${props => props.theme.black};
 	border-bottom: 1px solid ${props => props.theme.black};
+
+	@media ${device.tabletP} {  
+		right: 64px;
+	}
+
+	@media ${device.mobileS2} {  
+		right: 58px;
+		height: 26px;
+		right: 34px;
+	}
+
+	@media ${device.mobileS} {  
+		right: 58px;
+		height: 26px;
+		right: 34px;
+	}
 `;
 
 const TitleBox = styled.div`
 	display: flex;
 	align-items: center;
 	width: 500px;
-	font-size: 20px;
+	font-size: 17px;
 	margin-top: 20px;
 	letter-spacing: 6px;
 	line-height: normal;
 	padding: 18px 0 13px 20px;
 	background: ${props => props.theme.white};
 	font-family: ${props => props.theme.resume.primaryFont};
+
+	@media ${device.tabletP} {
+		padding-left: 16px;  
+		width: 320px;
+	}
+
+	@media ${device.mobileL} {  
+		padding-left: 10px;  
+		width: 300px;
+		font-size: 15px;
+	}
+
+	@media ${device.mobileS} {  
+		padding: 10px 0 7px 10px;
+		width: 155px;
+		letter-spacing: 3px;
+		font-size: 8px;
+		margin-top: 10px;
+	}
+
+	@media ${device.mobileS2} {  
+		padding: 6px 0 6px 6px;
+		width: 140px;
+		letter-spacing: 2px;
+		font-size: 8.5px;
+	}
 `;
 
 const PositionQuickInfo = styled.div`
@@ -340,6 +941,26 @@ const PositionQuickInfo = styled.div`
 	margin-bottom: 20px;
 	font-family: ${props => props.theme.resume.primaryFont};
 	color: ${props => props.theme.resume.palette.lightGrey};
+
+	@media ${device.tabletP} {  
+		font-size: 14px;
+		max-width: 300px;
+	}
+
+	@media ${device.mobileL} {  
+		font-size: 14px;
+		max-width: 300px;
+	}
+
+	@media ${device.mobileS} {  
+		font-size: 11px;
+		max-width: 300px;
+	}
+
+	@media ${device.mobileS2} {  
+		font-size: 10px;
+		max-width: 280px;
+	}
 `;
 
 const ReferenceContactInfo = styled.div`
@@ -348,13 +969,29 @@ const ReferenceContactInfo = styled.div`
 	font-style: italic;
 	font-family: ${props => props.theme.resume.primaryFont};
 	color: ${props => props.theme.resume.palette.lightGrey};
+
+	@media ${device.tabletP} {  
+		font-size: 13px;
+	}
+
+	@media ${device.mobileL} {  
+		font-size: 13px;
+	}
+
+	@media ${device.mobileS} {  
+		font-size: 13px;
+	}
 `;
 
 const SeperatorHorizontal = styled.div`
-	width: 730px;
+	min-width: 100%;
 	height: 20px;
 	margin: 20px 0 20px 0;
 	background-color: ${props => props.theme.resume.palette.softBlue};
+
+	@media ${device.laptop} {  
+		max-width: 630px;
+	}
 `;
 
 const SeperatorVertical = styled.div`
@@ -362,6 +999,24 @@ const SeperatorVertical = styled.div`
 	height: 100wh;
 	margin-top: 20px;
 	background-color: ${props => props.theme.resume.palette.softBlue};
+
+	@media ${device.tabletP} {  
+		margin-top: 16px;
+		height: 150px;
+	}
+
+	@media ${device.mobileL} {  
+		margin-top: 16px;
+		height: 150px;
+	}
+
+	@media ${device.mobileS} {  
+		margin-top: 16px;
+		margin-bottom: 26px;
+		height: 20px;
+		visibility: hidden;
+	}
+
 `;
 
 const Reference = styled.div`
@@ -371,10 +1026,28 @@ const Reference = styled.div`
 
 const ReferencesBlob = styled.div`
 	display: flex;
-	width 100wh;
+	width: 100wh;
 	height: 200px;
 	margin: 30px 80px 100px 0;
 	justify-content: space-between;
+
+	@media ${device.tabletP} {  
+		width: 400px;
+	}
+
+	@media ${device.mobileL} {  
+		width: 400px;
+	}
+
+	@media ${device.mobileS} { 
+		flex-direction: column;
+		width: 300px;
+		margin: 0 80px 80px 0;
+	}
+	
+	@media ${device.desktopL} {
+		width: 350px;
+	}
 `;
 
 const ReferenceName = styled.p`
@@ -383,7 +1056,23 @@ const ReferenceName = styled.p`
 	margin-bottom: 4px;
 	text-transform: uppercase;
 	color: ${props => props.theme.resume.palette.black};
-	font-family: ${props => props.theme.resume.primaryFont};
+	font-family: ${props 	=> props.theme.resume.primaryFont};
+
+	@media ${device.tabletP} {
+		font-size: 16px;
+	}
+
+	@media ${device.mobileL} {
+		font-size: 16px;
+	}
+
+	@media ${device.mobileS} {
+		font-size: 14px;
+	}
+
+	@media ${device.desktopL} {
+		font-size: 15px;
+	}
 `;
 
 const ReferenceTitle = styled.p`
@@ -391,6 +1080,23 @@ const ReferenceTitle = styled.p`
 	font-size: 19px;
 	color: ${props => props.theme.resume.palette.blackAlt};
 	font-family: ${props => props.theme.resume.primaryFont};
+
+	@media ${device.tabletP} {
+		font-size: 15px;
+	}
+
+	@media ${device.mobileL} {
+		font-size: 15px;
+	}
+
+	@media ${device.mobileS} {
+		font-size: 14px;
+	}
+
+	@media ${device.desktopL} {
+		font-size: 14px;
+		width: 140px;
+	}
 `;
 
 const InterestsWrapper = styled.div`
@@ -400,6 +1106,32 @@ const InterestsWrapper = styled.div`
 	margin-top: 40px;
 	justify-content: space-between;
 	color: ${props => props.theme.resume.palette.silver};
+
+	@media ${device.laptop} {  
+		width: 650px;
+	}
+
+	@media ${device.tabletP} {  
+		width: 400px;
+		margin-top: 20px;
+		font-size: 13px;
+	}
+
+	@media ${device.mobileL} {
+		width: 400px;
+		margin-top: 20px;
+		font-size: 13px;
+	}
+
+	@media ${device.mobileS} {
+		width: 200px;
+		margin-top: 20px;
+		font-size: 7px;
+	}
+
+	@media ${device.desktopL} {
+		width: 370px;
+	}
 `;
 
 const InterestIcon = styled.div`
@@ -421,21 +1153,62 @@ const FollowMeIcon = styled(div)`
 	height: ${props => props.size? props.size: 24}px;
 	opacity: ${props => props.opacity? props.opacity: props.theme.defaultOpacity};
 	margin-top: ${props => props.marginTop? props.marginTop: props.theme.defaultMargin}px;
+
+	@media ${device.mobileS2} {  
+		height: 18px;
+		width: 18px;
+		background-size: 18px;
+	}
+
+	@media ${device.mobileS} {  
+		height: 18px;
+		width: 18px;
+		background-size: 18px;
+	}
 `;
 
 const FollowMeWrapper = styled.div`
-	padding-top: 30px;
-	padding-left: 40px;
+	padding: 30px 0 0 25px;
+
+	@media ${device.mobileS} {  
+		padding: 20px 0 0 15px;
+	}
+
+	@media ${device.mobileS2} {  
+		padding: 30px 0 0 15px;
+	}
+
 `;
 
 const FollowMeRow = styled.div`
 	display: flex;
 	align-items: center;
 	height: 45px;
+
+	@media ${device.mobileS} {  
+		height: 40px;
+	}
+
 `;
 
 const VerticalSpacing = styled.div`
 	height: 40px;
+
+	@media ${device.tabletP} {  
+		height: 30px;
+	}
+
+	@media ${device.mobileL} {  
+		height: 30px;
+	}
+
+	@media ${device.mobileS} {  
+		height: 30px;
+	}
+
+	@media ${device.mobileS2} {  
+		height: 20px;
+	}
 `;
 
 const Heading = styled(h1)`
@@ -443,14 +1216,39 @@ const Heading = styled(h1)`
 	font-size: 26px;
 	line-height: 65px;
 	letter-spacing: 4px;
-	width: 0px;
 	text-transform: uppercase;
 	color: ${props => props.theme.resume.palette.black};
 	font-family: ${props => props.theme.resume.altFont};
 	border-bottom: 1px solid ${props => props.borderColor};
 	animation: ${props => props.theme.animationBorderGrow};
 	animation-delay: 0.6s;
-`;
+
+	@media ${device.tabletP} {  
+		font-size: 20px;
+		line-height: 45px;
+	}
+
+	@media ${device.mobileL} {  
+		font-size: 20px;
+		line-height: 45px;
+	}
+
+	@media ${device.mobileS} {  
+		font-size: 17px;
+		line-height: 24px;
+	}
+
+	@media ${device.mobileS2} {  
+		font-size: 13px;
+		line-height: 24px;
+	}
+
+	@media ${device.mobileS3} {  
+		font-size: 17px;
+		line-height: 24px;
+	}
+
+	`;
 
 const renderControlIcons = (controller: IResumePageController) => {
 	
@@ -895,13 +1693,13 @@ const Resume = () => {
 
 	return useObserver(() => {
 
-		return (
-		<PageLoader
+		return ( 
+			<PageLoader
 			isLoading={ctrl.values.isLoadingPage.get()}
 			spinnerSize={80}
-		>
-			{renderResume(ctrl)}
-		</PageLoader>
+			>
+				{renderResume(ctrl)}
+			</PageLoader>
 		);
 	});
 }

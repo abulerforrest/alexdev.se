@@ -30,7 +30,7 @@ export interface INavBarControllerValues {
 	menuItems: IObservableArray<IMenuItem>
 }
 
-export type NavBarState = "default" | "revealed" | "collapsed";
+export type NavBarState = "default" | "revealed" | "collapsed" | "hidden";
 export interface INavBarControllerActions {
 	hideNav: () => void
 	toggleShowNav: () => void

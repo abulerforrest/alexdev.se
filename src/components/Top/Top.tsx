@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 
 import {
 	useObserver
@@ -17,8 +17,19 @@ import {
 import {
 	storeContext
 } from "../../contexts";
+import { device } from "../../themes/mediaqueries";
 
 export type NavBarState = "default" | "revealed" | "collapsed";
+
+const profilepic = ({ className, onClick }: HTMLDivElement | any) => (
+	<div className={className} onClick={onClick} />
+);
+
+const clickmetext = ({ className, children }: HTMLDivElement | any) => (
+	<div className={className}>
+		{children}
+	</div>
+);
 
 const Top = () => {
 
@@ -39,7 +50,7 @@ const Top = () => {
 		width: 0px;
 	`;
 
-	const ProfilePic = styled.div`
+	const ProfilePic = styled(profilepic)`
 		z-index: 2;
 		top: 0;
 		right: 0px;
@@ -54,9 +65,37 @@ const Top = () => {
 		background-image: url(${profilePic});
 		animation: ${props => props.theme.animationReveal};
 		animation-delay: 0.2s;
+
+		@media ${device.mobileS} {
+			margin-top: 10px;
+			right: -25px;
+			width: 50px;
+			height: 50px;
+			background-size: 50px;
+		}
+
+		@media ${device.desktopL} {
+			right: -25px;
+		}
+
+		@media ${device.desktopS} {
+			margin-top: 10px;
+			right: -35px;
+			width: 70px;
+			height: 70px;
+			background-size: 70px;
+		}
+
+		@media ${device.desktopXS} {
+			margin-top: 10px;
+			right: -35px;
+			width: 60px;
+			height: 60px;
+			background-size: 60px;
+		}
 	`;
 
-	const ClickMeText = styled.div`
+	const ClickMeText = styled(clickmetext)`
 		z-index: 2;
 		top: 36px;
 		right: 130px;
@@ -68,7 +107,7 @@ const Top = () => {
 		border-radius: 8px;
 		color: ${(props) => props.theme.secondaryColor};
 		background-color: ${(props) => props.theme.primaryColor};
-		animation: ${(props) => props.theme.animationReveal};
+		animation: ${props => props.theme.animationReveal};
 		animation-delay: 0.4s;
 
 		&:after {
@@ -83,17 +122,108 @@ const Top = () => {
 			border-left-color: #ffffff;
 			margin-right: -20px;
 		}
+
+		@media ${device.desktopL} {
+			right: 108px;
+		}
+
+		@media ${device.desktopS} {
+			z-index: 2;
+			top: 24px;
+			right: 72px;
+			padding: 12px;
+			font-size: 17px;
+			font-weight: 700;
+			white-space: nowrap;
+			position: absolute;
+			border-radius: 8px;
+			color: ${(props) => props.theme.secondaryColor};
+			background-color: ${(props) => props.theme.primaryColor};
+
+			&:after {
+				top: 87%;
+				right: 0;
+				content: '';
+				margin-top: -20px;
+				position: absolute;
+				border: 18px solid transparent;
+				border-top: 0;
+				border-right: 0;
+				border-left-color: #ffffff;
+				margin-right: -10px;
+		}
+
+		@media ${device.desktopXS} {
+			z-index: 2;
+			top: 19px;
+			right: 62px;
+			padding: 12px;
+			font-size: 16px;
+			font-weight: 700;
+			white-space: nowrap;
+			position: absolute;
+			border-radius: 8px;
+			color: ${(props) => props.theme.secondaryColor};
+			background-color: ${(props) => props.theme.primaryColor};
+
+			&:after {
+				top: 90%;
+				right: 0;
+				content: '';
+				margin-top: -20px;
+				position: absolute;
+				border: 16px solid transparent;
+				border-top: 0;
+				border-right: 0;
+				border-left-color: #ffffff;
+				margin-right: -10px;
+		}
+
+		@media ${device.mobileS} {
+			z-index: 2;
+			top: 16px;
+			right: 62px;
+			padding: 12px;
+			font-size: 16px;
+			font-weight: 700;
+			white-space: nowrap;
+			position: absolute;
+			border-radius: 8px;
+			color: ${(props) => props.theme.secondaryColor};
+			background-color: ${(props) => props.theme.primaryColor};
+			animation: ${(props) => props.theme.animationReveal};
+			animation-delay: 0.4s;
+
+			&:after {
+				top: 90%;
+				right: 0;
+				content: '';
+				margin-top: -20px;
+				position: absolute;
+				border: 16px solid transparent;
+				border-top: 0;
+				border-right: 0;
+				border-left-color: #ffffff;
+				margin-right: -10px;
+		}
+
+
+
 	`;
 
-	useEffect(() => {
-		
+
+
+	React.useEffect(
+		() => {
+
 		document.addEventListener("mousedown", handleClickOutside);
 
 		return function cleanup() {
 			document.removeEventListener('mousedown', handleClickOutside);
-		};
+			};
 
 	});
+
 
 	const handleClickOutside = (e: any) : void => {
 
@@ -103,7 +233,7 @@ const Top = () => {
 	};
 
 	const toggleShowNav = () : void => {
-		ctrl.actions.toggleShowNav();
+			ctrl.actions.toggleShowNav();
 	}
 
 	const renderClickMe = (text: string) : React.ReactNode => {
@@ -138,7 +268,7 @@ const Top = () => {
 	const defaultText = showNewText? handleText(pageTitle): "Click me!";
 
 	return useObserver(() => {
-
+	
 		return (
 			<React.Fragment>
 				<Root>

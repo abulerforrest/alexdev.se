@@ -13,7 +13,7 @@ const routes = () => {
       "/resume": () => (
         <PageModal
           page={<ResumePage />}
-   />)
+  />)
 }
 
   return routing;

@@ -32,8 +32,8 @@ interface ISocialIconsProps {
 const openLink = (href: string) => {
     const win: Window | null = window.open(href, '_blank');
     if (win != null) {
-      win.focus();
-      win.opener = null;
+        win.focus();
+        win.opener = null;
     }
 };
 
@@ -53,6 +53,7 @@ const SocialIcons = ({color, size, icon, dimmed}: ISocialIconsProps) => {
                     iconType={icon.type}
                     fill={color}
                     width={size}
+                    height={size}
                     onClick={() => openLink(icon.href)}
                 />
             ))}

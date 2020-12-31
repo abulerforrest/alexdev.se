@@ -14,7 +14,7 @@ export const defaultTheme = {
 
 	resume: {
 		zIndex: 0,
-		height: "3500px",
+		height: "100%",
 		primaryFont: `"Arial"`,
 		secondaryFont: `"Nunito Sans", sans-serif`,
 		altFont: `"Montserrat", sans-serif`,

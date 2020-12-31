@@ -116,20 +116,24 @@ const NavBarController = (
 
 	autorun (
 		async () => {
-			await dataStore.fetchNavData();
+			if(dataStore !== null) {
 
-			dataStore.getMenuItems();
+				await dataStore.fetchNavData();
 
-			const controllersTemp: IMenuItemController[] = [];
+				dataStore.getMenuItems();
 
-			for(const model of dataStore.getMenuItems()) {
-			
-				const menuItemCtrl = createMenuItemCtrl(model);
+				const controllersTemp: IMenuItemController[] = [];
 
-				controllersTemp.push(menuItemCtrl);
+				for(const model of dataStore.getMenuItems()) {
+				
+					const menuItemCtrl = createMenuItemCtrl(model);
+
+					controllersTemp.push(menuItemCtrl);
+				}
+
+				menuItemControllers.replace(controllersTemp);
+
 			}
-
-			menuItemControllers.replace(controllersTemp);
 
 		});
 	
