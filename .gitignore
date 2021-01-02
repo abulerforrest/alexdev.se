@@ -4,9 +4,9 @@
 /node_modules
 /.pnp
 .pnp.js
-#firebase
-.firebase
-.github
+# firebase
+/.firebase
+/.github/workflows
 firebase.json
 firestore.indexes.json
 firestore.rules.json
