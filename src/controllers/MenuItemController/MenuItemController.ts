@@ -4,7 +4,7 @@ import {
 } from "mobx";
 
 // util
-import { isURL } from "../../internal/utils";
+import {validateURL, IUrl} from "../../internal/utils";
 
 import {
 	IMenuItemController,
@@ -46,7 +46,7 @@ const MenuItemController = (
 
 			return isSelectedChild || isSelectedSibling;
 		},
-		isURL: (href: string): boolean => isURL(href),
+		validateURL: (href: string): IUrl => validateURL(href),
 		isSelected: (
 			itemId: number,
 			itemType: MenuItemType,

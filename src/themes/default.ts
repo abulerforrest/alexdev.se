@@ -6,6 +6,7 @@ export const defaultTheme = {
 	primaryColor: "#ffffff",
 	primaryFont: `"Roboto", sans-serif`,
 	secondaryFont: `"Volkhov", serif`,
+	additionalFont: `"Montserrat", sans-serif`,
 	secondaryColor: "rgba(0,212,255,1)",
 	defaultOpacity: 1,
 	defaultMargin: 0,

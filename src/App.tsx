@@ -1,6 +1,7 @@
 import React from "react";
 
-import { useRoutes } from "hookrouter";
+// @ts-ignore
+import { useRoutes } from "hookrouter"
 
 import routes from "./routes/router";
 

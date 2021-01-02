@@ -30,6 +30,7 @@ import {
 export enum siblingStatusTypes {
 	CURRENT = "viewing",
 	LINK = "external link",
+	EMAIL = "email link",
 	DEFAULT = "title"
 }
 

@@ -12,7 +12,6 @@ const size = {
 }
 
 export const device = {
-
     mobileS3: `only screen and (min-device-width: ${size.mobileS2.minWidth}) and (max-device-height: ${size.mobileS2.maxWidth}) and (orientation : landscape)`,
     mobileS2: `only screen and (min-device-width: ${size.mobileS2.minWidth}) and (max-device-height: ${size.mobileS2.maxWidth}) and (orientation : portrait)`,
     mobileS: `(min-width: ${size.mobileS.minWidth}) and (max-width: ${size.mobileS.maxWidth})`,
@@ -24,5 +23,4 @@ export const device = {
     desktopXS: `(min-width: ${size.desktopXS.minWidth}) and (max-width: ${size.desktopXS.maxWidth})`,
     desktopS: `(min-width: ${size.desktopS.minWidth}) and (max-width: ${size.desktopS.maxWidth})`,
     desktopL: `(min-width: ${size.desktopL.minWidth}) and (max-width: ${size.desktopL.maxWidth})`
-
 };

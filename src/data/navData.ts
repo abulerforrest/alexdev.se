@@ -109,7 +109,7 @@ export const menuItems: IMenuItems = [
 				]
 			},
 			{
-				id: 0,
+				id: 1,
 				rootID: 2,
 				parentID: 2,
 				title: "EPs",
@@ -129,7 +129,7 @@ export const menuItems: IMenuItems = [
 					},
 					{
 						title: "Zalza vs. The World 2",
-						id: 0,
+						id: 1,
 						rootID: 2,
 						parentID: 0,
 						type: "sibling",
@@ -154,35 +154,39 @@ export const menuItems: IMenuItems = [
 		],
 	},
 	{
-		title: "Contact",
+		title: "About",
 		id: 3,
 		type: "parent",
 		items: [
-/*			{
-				id: 0,
-				rootID: 3,
-				parentID: 3,
-				title: "About me",
-				type: "child",
-				href: "",
-				items: [					{ 
-					id: 0,
-					rootID: 3,
-					parentID: 0,
-					title: "My background",
-					type: "sibling",
-					tags: [],
-					href: ""
-				}]
-			},
-*/
 			{
 				id: 0,
 				rootID: 3,
 				parentID: 3,
-				title: "Drop me an email",
+				title: "Contact",
 				type: "child",
-				href: "alexander@buler-forrest.se",
+				href: "",
+				items: [
+					{
+						title: "Drop me an email",
+						id: 2,
+						rootID: 2,
+						parentID: 0,
+						type: "sibling",
+						tags: [
+							{title: "Contact", color: "#F88D56"}
+						],
+						href: "alexander@buler-forrest.se"
+					}
+					]
+			},
+
+			{
+				id: 1,
+				rootID: 3,
+				parentID: 3,
+				title: "Disclaimer",
+				type: "child",
+				href: "/disclaimer",
 				items: []
 			}
 		],

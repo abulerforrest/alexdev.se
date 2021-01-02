@@ -2,7 +2,6 @@ import * as React from "react";
 
 import { svgIcons } from "../../themes/svg-paths";
 import { IconTypes } from "../ActionIcons";
-import { CSSProperties } from "styled-components";
 
 interface SVGIconInputProps {
     width: string | number,
@@ -18,7 +17,7 @@ const getPath = (iconType: IconTypes, props: SVGIconInputProps) => {
 
 interface SVGIconProps {
     iconType: IconTypes
-    style?: CSSProperties
+    style?: React.CSSProperties
     fill?: string
     height?: number | string
     width?: number | string

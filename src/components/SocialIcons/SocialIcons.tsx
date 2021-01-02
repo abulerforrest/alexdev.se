@@ -17,6 +17,12 @@ const Root = styled.div`
     }
 `;
 
+const StyledSVG = styled(SVGIcon)`
+    &:hover {
+        opacity: 0.7;
+    }
+`;
+
 interface ISocialIconProps {
     type: IconTypes
     href: string
@@ -41,14 +47,14 @@ const SocialIcons = ({color, size, icon, dimmed}: ISocialIconsProps) => {
 
     let appendClass: string = "";
 
-    if(dimmed === true) {
+    if(dimmed) {
         appendClass = "dimmed";
     }
 
     return (
         <Root className={appendClass}>
             {icon.map(icon => (
-                <SVGIcon
+                <StyledSVG
                     key={icon.type}
                     iconType={icon.type}
                     fill={color}

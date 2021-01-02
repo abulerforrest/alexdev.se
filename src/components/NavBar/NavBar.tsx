@@ -1,37 +1,28 @@
 import React from "react";
 
-import { A as Link } from "hookrouter";
+// @ts-ignore
+import {A as Link} from "hookrouter";
 
 import styled from "styled-components";
 
-import {
-	useObserver
-} from "mobx-react";
+import {useObserver} from "mobx-react";
 
-import {
-	INavBarController
-} from "../../interfaces/NavBarController";
+import {INavBarController} from "../../interfaces/NavBarController";
 
 import SVGIcon from "../SVGIcon";
 
-import { IconTypes } from "../ActionIcons";
+import {IconTypes} from "../ActionIcons";
 
-import { storeContext } from "../../contexts";
+import {storeContext} from "../../contexts";
 
-import {
-	IMenuSiblings,
-	IMenuChildren
-} from "../../interfaces/MenuItems";
+import {IMenuChildren, IMenuSiblings} from "../../interfaces/MenuItems";
 
-import {
-	IMenuItemController
-} from "../../interfaces/MenuItemController";
+import {IMenuItemController} from "../../interfaces/MenuItemController";
 
-import {
-	siblingStatusTypes
-} from "../../controllers/NavBarController/NavBarController";
+import {siblingStatusTypes} from "../../controllers/NavBarController/NavBarController";
 
-import { device } from "../../themes/mediaqueries";
+import {device} from "../../themes/mediaqueries";
+import {IUrl} from "../../internal/utils";
 
 const tag = ({ className, children }: HTMLDivElement | any) => (
 	<div className={className}>{children}</div>
@@ -370,16 +361,16 @@ const Nav = styled.ul`
 		animation: ${(props) => props.theme.animationCollapse};
 	}
 
-
 `;
 
 const renderSiblings = (siblings: IMenuSiblings[], ctrl: INavBarController, menuitemCtrl: IMenuItemController) => {
 
 	const handleClick = (href: string, id: number, parentID: number, rootID: number, title: string) => {
 		ctrl.actions.hideNav();
+		const type = menuitemCtrl.validateURL(href).type;
 
-		if(menuitemCtrl.isURL(href)) {
-			window.location.href = href;
+		if(menuitemCtrl.validateURL(href).isURL) {
+				window.location.href = type === siblingStatusTypes.EMAIL ? `mailto:${href}` : href;
 		} else {
 			ctrl.actions.setCurrentPage(id, "sibling", parentID, rootID, title);
 		}
@@ -390,10 +381,12 @@ const renderSiblings = (siblings: IMenuSiblings[], ctrl: INavBarController, menu
 		ctrl.actions.setCurrentSibling(sibling);
 	}
 
-	const getSiblingStatusText = (isURL: boolean, isSelected: boolean) => {
+	const getSiblingStatusText = (validateURL: IUrl, isSelected: boolean) => {
+
+		const { isURL, type } = validateURL;
 
 		if(isURL) {
-			return siblingStatusTypes.LINK;	
+			return type;
 		} else if(isSelected) {
 			return siblingStatusTypes.CURRENT;
 		}
@@ -403,54 +396,55 @@ const renderSiblings = (siblings: IMenuSiblings[], ctrl: INavBarController, menu
 
 	return siblings.map((sibling: IMenuSiblings) => {
 
-		const isURL: boolean = menuitemCtrl.isURL(sibling.href);
+		const validateURL: IUrl = menuitemCtrl.validateURL(sibling.href);
 
 		const isSelected: boolean = menuitemCtrl.isSelected(
 			sibling.id,
 			sibling.type,
-			sibling.parentID,
-			sibling.rootID
+			sibling.rootID,
+			sibling.parentID
 		);
 
-		const renderSiblingMenuItem = () => (
-			<Link
-				href={sibling.href}
-				onClick={() => handleClick(
-					sibling.href,
-					sibling.id,
-					sibling.parentID,
-					sibling.rootID,
-					sibling.title
-				)}
-			>
-				<SiblingWrapper
-					appendContent={getSiblingStatusText(isURL, isSelected)}
-					className={
-						isSelected? "selected": ""
-					}
-					onMouseEnter={() => handleMouseEnter(sibling)}
+		const renderSiblingMenuItem = () => {
+			const siblingStatusText = getSiblingStatusText(validateURL, isSelected);
+			return (
+				<div
+					onClick={() => handleClick(
+						sibling.href,
+						sibling.id,
+						sibling.parentID,
+						sibling.rootID,
+						sibling.title
+					)}
 				>
-					<SiblingMenuItem
-						key={sibling.id}
+					<SiblingWrapper
+						appendContent={siblingStatusText}
+						className={
+							isSelected? "selected": ""
+						}
+						onMouseEnter={() => handleMouseEnter(sibling)}
 					>
-						{sibling.title}
-					</SiblingMenuItem>
-					{sibling.tags.map(tag => (
-						<Tags
-							key={tag.title}
+						<SiblingMenuItem
+							key={sibling.id}
 						>
-							<StyledTag
-								fillColor={tag.color}
+							{sibling.title}
+						</SiblingMenuItem>
+						{sibling.tags.map(tag => (
+							<Tags
+								key={tag.title}
 							>
-								{tag.title}
-							</StyledTag>
-						</Tags>
-					))}
-					<UnderLine2 />
-				</SiblingWrapper>
-			</Link>
-		);
-	
+								<StyledTag
+									fillColor={tag.color}
+								>
+									{tag.title}
+								</StyledTag>
+							</Tags>
+						))}
+						<UnderLine2 />
+					</SiblingWrapper>
+				</div>
+			)
+		}
 		return (
 			<Siblings
 				key={sibling.id}
@@ -469,10 +463,10 @@ const renderArrow = (revealed: boolean, hasChildren: boolean) => {
 					viewBox="-4 -4 24 24"
 					width={18}
 					iconType={
-						revealed? IconTypes.ICON_ARROWDOWN: IconTypes.ICON_ARROWRIGHT
+						revealed ? IconTypes.ICON_ARROWDOWN : IconTypes.ICON_ARROWRIGHT
 					}
 					fill={"#fff"}
-				></SVGIcon>
+	/>
 			</StyledArrow>
 		);
 	}

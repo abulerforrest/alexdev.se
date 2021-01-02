@@ -257,6 +257,10 @@ const Top = () => {
 			textOutput = `Nice going!`;
 		}
 
+		if(title === "disclaimer") {
+			textOutput = `What?`;
+		}
+
 		return textOutput;
 	}
 

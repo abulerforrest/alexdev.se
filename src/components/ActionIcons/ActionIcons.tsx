@@ -153,7 +153,7 @@ const ActionIcons = observer((props: IActionIconsProps) => {
                             style={style}
                             onClick={icon.src}
                         >
-                        {isLoading === true && currentIcon === icon.type? <Spinner size={30} color={spinnerLoadColor} />:
+                        {isLoading && currentIcon === icon.type? <Spinner size={30} color={spinnerLoadColor} />:
                             <SVGIcon
                                 iconType={icon.type}
                                 width={actionIconSize}

@@ -4,6 +4,7 @@ import {
 
 import { IMenuSiblings, IMenuItem } from "../MenuItems";
 import { IMenuItemController } from "../MenuItemController";
+import React from "react";
 
 export interface ICurrentPage {
 	id: number
