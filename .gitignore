@@ -9,8 +9,8 @@
 /.github/workflows
 firebase.json
 firestore.indexes.json
-firestore.rules.json
 database.rules.json
+firestore.rules
 .firebaserc
 remoteconfig.template.json
 storage.rules
