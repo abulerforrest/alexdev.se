@@ -323,20 +323,20 @@ const Nav = styled.ul`
 	visibility: hidden;
 	list-style-type: none;
 	position: relative;
-	right: -130px;
+	right: -60px;
 	top: 10px;
 	color: ${(props) => props.theme.primaryColor};
 
 	@media ${device.desktopL} {
-		right: -230px;
+		right: -160px;
 	}
 
 	@media ${device.desktopS} {
-		right: -310px;
+		right: -220px;
 	}
 
 	@media ${device.desktopXS} {
-		right: -280px;
+		right: -275px;
 	}
 
 	@media ${device.mobileS} {

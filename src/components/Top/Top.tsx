@@ -117,7 +117,7 @@ const ClickMeText = styled(clickmetext)`
 	}
 
 	@media ${device.desktopL} {
-		right: 108px;
+		right: 100px;
 	}
 
 	@media ${device.desktopS} {
@@ -149,7 +149,7 @@ const ClickMeText = styled(clickmetext)`
 	@media ${device.desktopXS} {
 		z-index: 2;
 		top: 19px;
-		right: 62px;
+		right: 72px;
 		padding: 12px;
 		font-size: 16px;
 		font-weight: 700;
