@@ -45,9 +45,8 @@ const Root = styled.div`
 	`;
 
 const ProfilePic = styled(profilepic)`
-		z-index: 2;
 		top: 0;
-		right: 0px;
+		right: 0;
 		width: 80px;
 		height: 80px;
 		cursor: pointer;

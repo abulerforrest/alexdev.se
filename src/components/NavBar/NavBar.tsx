@@ -126,7 +126,7 @@ const SiblingWrapper = styled(siblingWrapper)`
 	animation-iteration-count: 1;
 
 	&:hover ${SiblingMenuItem} {
-		margin-left: 10px
+		margin-left: 10px;
 	}
 
 	&:hover ${Tags} {
@@ -285,7 +285,7 @@ const SubMenuItem = styled.li`
 		}
 	}
 
-	&:hover ${Siblings} {
+	&:hover ${Siblings} {
 		animation: ${(props) => props.theme.animationReveal};
 	}
 
