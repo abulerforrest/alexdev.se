@@ -653,7 +653,7 @@ const ResumePDF = (
 					FS DATA AB | Sundstorget 2 Helsingborg
 				</PositionQuickInfo>
 				<TextBlob>
-					Provided technical support via Phone / Helpdesk. I also created web design according to consultancy assignments and as well created graphical design for fsdata.se. The job involved daily troubleshooting in web pages, code and ﬁnding effective solutions to problems that arised. It gave me knowledge in HTML, CSS, Javascript, SSH/Linux, VPS and Dedicated servers, Apache/IIS and FTP/SFTP.
+					Provided technical support via Phone / Helpdesk. I also created web design according to consultancy assignments and as well created graphical design for fsdata.se. The job involved daily troubleshooting in web pages, code and finding effective solutions to problems that arise. It gave me knowledge in HTML, CSS, Javascript, SSH/Linux, VPS and Dedicated servers, Apache/IIS and FTP/SFTP.
 				</TextBlob>
 				<SeperatorHorizontal />
 				<PositionHeadingContainer>

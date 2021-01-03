@@ -10,7 +10,6 @@ const styledText = ({ className, children }: HTMLDivElement | any) => (
 );
 
 const Text = styled(styledText)`
-    display: flex;
     font-weight: ${props => props.fontWeight};
     font-size: ${props => props.fontSize}px;
     color: ${props => props.theme.primaryColor};
@@ -18,25 +17,23 @@ const Text = styled(styledText)`
     font-style: ${props => props.type === "quote"? "italic": "normal"};
 `;
 
-const renderText = (msg: string, fontSize: number, fontFamily: string, fontWeight: string | number, type: TypographyTypes) => {
-if(msg) {
-    return (
-        <Text
+const renderText = (children: React.ReactNode, fontSize: number, fontFamily: string, fontWeight: string | number, type: TypographyTypes) => {
+if(children) {
+    return <Text
             fontSize={fontSize}
             fontFamily={fontFamily}
             fontWeight={fontWeight}
             type={type}
         >
-            {msg}
-        </Text>
-    );
-    } 
+            {children}
+        </Text>;
+    }
 }
 
 export type TypographyTypes = "default" | "quote";
 
 interface TypographyProps {
-    msg: string
+    children?: React.ReactNode
     fontSize?: number
     fontFamily?: string
     fontWeight?: number | string
@@ -44,16 +41,18 @@ interface TypographyProps {
 }
 
 const Typography = ({
-    msg = "",
+    children = null,
     fontSize = 12,
     fontFamily = defaultTheme.primaryFont,
     fontWeight = "normal",
     type = "default"
 
 }: TypographyProps) => {
-    return (<div>
-        {renderText(msg, fontSize, fontFamily, fontWeight, type)}
-    </div>
+
+    return (
+        <React.Fragment>
+            {renderText(children, fontSize, fontFamily, fontWeight, type)}
+        </React.Fragment>
         );
 }
 

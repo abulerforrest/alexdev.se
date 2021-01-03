@@ -20,7 +20,7 @@ interface PageProps {
 	navBarState?: IObservableValue<NavBarState>
 }
 
-const Page = observer((props: PageProps) => {
+const Page = observer(() => {
 
 	const ctrl: INavBarController = React.useContext(storeContext).navBarController;
 
@@ -56,21 +56,23 @@ const Page = observer((props: PageProps) => {
                 <TextContainer>
 					<div style={{borderLeft: '6px solid #fff', paddingLeft: 20, marginBottom: 20}}>
 						<Typography
-							msg="What the heck, is, alexdev?"
 							fontSize={60}
 							fontFamily={defaultTheme.additionalFont}
 							fontWeight="800"
 							type={undefined}
-						/>
+						>
+							What the heck, is, alexdev?
+						</Typography>
 					</div>
-					<div style={{color: 'red', textShadow: '0 0px 0 rgba(73,130,157,0.2), 0 0px 0 rgba(73,130,157,0.2), 0 1px 0 rgba(73,130,157,0.1), 0 1px 0 rgba(73,130,157,0.1), 0 1px 0 rgba(73,130,157,0.1), 0 1px 0 rgba(73,130,157,0.1), 0 1px 0 rgba(73,130,157,0.1), 0 4px 0 rgba(73,130,157,0.1), 0 0px 0 rgba(73,130,157,0.1)'}}>
+					<div style={{color: 'red', textShadow: '1px 3px 3px rgba(0,0,0,0.1)'}}>
 					<Typography
-						msg="So, hello. I'm Alex. I'm a developer and musician. This site is my portfolio page, where I take the opportunity to showcase my code, music and provide links to my different projects. Not least you can check out my Resumé-page where you can read and download my CV to get a sense of my personal background and skills."
 						fontSize={20}
 						fontFamily={defaultTheme.additionalFont}
 						fontWeight="500"
 						type={undefined}
-					/>
+					>
+						<p>So, hello. I'm <b>Alex</b>. I'm a developer and musician. In my free time I love to build stuff with React JS and music-wise I've for many years released and performed '8-bit' music.</p> <p>This site is my portfolio page, where I take the opportunity to showcase my code, music and provide links to my different projects. Not least you can check out my Resumé-page where you can read and download my CV to get a sense of my personal background and skills.</p><p>You are welcome to contact me if you are interested in my profile, regarding collaborations or anything in between.</p><p><b>All the best!</b></p>
+					</Typography>
 					</div>
                 </TextContainer>
 			</PageContainer>

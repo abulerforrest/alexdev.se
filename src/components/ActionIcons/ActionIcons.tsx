@@ -10,7 +10,6 @@ import { device } from "../../themes/mediaqueries";
 
 import { isMobileDevice } from "../../internal/utils";
 
-
 export enum IconTypes {
     PRINT,
     DOWNLOAD,

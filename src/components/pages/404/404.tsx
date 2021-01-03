@@ -61,26 +61,29 @@ const PageNotFound = observer(({
 			<PageNotFoundContainer>
                 <TextContainer>
 						<Typography
-							msg="404 ;("
 							fontSize={110}
 							fontFamily={defaultTheme.secondaryFont}
 							fontWeight="700"
 							type="default"
-						/>
+						>
+							404 ;(
+						</Typography>
 					<Typography
-						msg={`${errorMsg}.`}
 						fontSize={50}
 						fontFamily={defaultTheme.secondaryFont}
 						fontWeight={700}
 						type="default"
-					/>
+					>
+						{errorMsg}
+					</Typography>
 					<Typography
-						msg={errorQuote}
 						fontSize={25}
 						fontFamily={defaultTheme.primaryFont}
 						fontWeight={400}
 						type="quote"
-					/>
+					>
+						{errorQuote}
+					</Typography>
                 </TextContainer>
 				<SocialIcons
 					color="#3d718a"

@@ -31,13 +31,7 @@ const clickmetext = ({ className, children }: HTMLDivElement | any) => (
 	</div>
 );
 
-const Top = () => {
-
-	const ctrl: INavBarController = React.useContext(storeContext).navBarController;
-
-	const myRef: React.RefObject<HTMLDivElement> = React.createRef<HTMLDivElement>();
-
-	const Root = styled.div`
+const Root = styled.div`
 		display: flex;
 		height: 100px;
 		justify-content: flex-end;
@@ -50,7 +44,7 @@ const Top = () => {
 		width: 0px;
 	`;
 
-	const ProfilePic = styled(profilepic)`
+const ProfilePic = styled(profilepic)`
 		z-index: 2;
 		top: 0;
 		right: 0px;
@@ -95,7 +89,7 @@ const Top = () => {
 		}
 	`;
 
-	const ClickMeText = styled(clickmetext)`
+const ClickMeText = styled(clickmetext)`
 		z-index: 2;
 		top: 36px;
 		right: 130px;
@@ -206,12 +200,13 @@ const Top = () => {
 				border-left-color: #ffffff;
 				margin-right: -10px;
 		}
-
-
-
 	`;
 
+const Top = () => {
 
+	const ctrl: INavBarController = React.useContext(storeContext).navBarController;
+
+	const myRef: React.RefObject<HTMLDivElement> = React.createRef<HTMLDivElement>();
 
 	React.useEffect(
 		() => {

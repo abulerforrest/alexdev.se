@@ -22,6 +22,7 @@ import {IMenuItemController} from "../../interfaces/MenuItemController";
 import {siblingStatusTypes} from "../../controllers/NavBarController/NavBarController";
 
 import {device} from "../../themes/mediaqueries";
+
 import {IUrl} from "../../internal/utils";
 
 const tag = ({ className, children }: HTMLDivElement | any) => (
@@ -507,7 +508,7 @@ const renderChildren = (
 		const isCurrentChild: boolean = menuitemCtrl.isCurrentChild(child.id);
 
 		const revealed: boolean = showSiblings && isCurrentChild;
-		
+
 		return (
 			<SubMenuItem
 				key={child.id}

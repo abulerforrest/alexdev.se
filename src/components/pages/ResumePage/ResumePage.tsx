@@ -41,9 +41,9 @@ const h1 = ({className, children}: HTMLHeadingElement | any) => {
 }
 
 const Root = styled.div`
-	height: ${props => props.theme.resume.height}
-	z-index: ${props => props.theme.resume.zIndex}
-	box-shadow: ${props => props.theme.resume.boxShadow}
+	height: ${props => props.theme.resume.height};
+	z-index: ${props => props.theme.resume.zIndex};
+	box-shadow: ${props => props.theme.resume.boxShadow};
 `;
 
 const ResumeContainer = styled.div`
@@ -103,9 +103,9 @@ const RightSide = styled.div`
 `;
 
 const StyledIcon = styled(span)`
-	width: ${props => props.size}
-	height: ${props => props.size}
-	background-size: ${props => props.size}
+	width: ${props => props.size};
+	height: ${props => props.size};
+	background-size: ${props => props.size};
 	background-image: url(${props => props.icon});
 
 	@media ${device.tabletP} {  
@@ -513,7 +513,7 @@ const ExpertiseRow = styled.div`
 
 const ExpertiseLabel = styled.li`
 	font-size: 17px;
-	color: ${props => props.theme.resume.linkColor}
+	color: ${props => props.theme.resume.linkColor};
 	font-family: ${props => props.theme.resume.primaryFont};
 
 	@media ${device.tabletP} {  
@@ -1391,7 +1391,7 @@ const renderResume = (controller: IResumePageController) => {
 						FS DATA AB | Sundstorget 2 Helsingborg
 					</PositionQuickInfo>
 					<TextBlob>
-						Provided technical support via Phone / Helpdesk. I also created web design according to consultancy assignments and as well created graphical design for fsdata.se. The job involved daily troubleshooting in web pages, code and ﬁnding effective solutions to problems that arised. It gave me knowledge in HTML, CSS, Javascript, SSH/Linux, VPS and Dedicated servers, Apache/IIS and FTP/SFTP.
+						Provided technical support via Phone / Helpdesk. I also created web design according to consultancy assignments and as well created graphical design for fsdata.se. The job involved daily troubleshooting in web pages, code and finding effective solutions to problems that arise. It gave me knowledge in HTML, CSS, Javascript, SSH/Linux, VPS and Dedicated servers, Apache/IIS and FTP/SFTP.
 					</TextBlob>
 					<SeperatorHorizontal />
 					<PositionHeadingContainer>
