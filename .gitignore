@@ -21,7 +21,6 @@ ui-debug.log
 # production
 /build
 package-lock.json
-package.json
 
 # misc
 .idea
