@@ -51,6 +51,14 @@ const Page = observer(() => {
 		font-family: ${props => props.theme.secondaryFont};
 	`;
 
+	const StyledA = styled.a`
+		text-decoration: underline;
+		text-style: italic;
+		font-weight: 700;
+		color: #fff;
+		font-family: ${props => props.theme.additionalFont};
+	`;
+
 	return (
 			<PageContainer>
                 <TextContainer>
@@ -61,7 +69,7 @@ const Page = observer(() => {
 							fontWeight="800"
 							type={undefined}
 						>
-							What the heck, is, alexdev?
+							What the heck, is, <span style={{textDecoration: 'underline', textDecorationColor: '#f521ca'}}>alexdev</span>?
 						</Typography>
 					</div>
 					<div style={{color: 'red', textShadow: '1px 3px 3px rgba(0,0,0,0.1)'}}>
@@ -71,7 +79,7 @@ const Page = observer(() => {
 						fontWeight="500"
 						type={undefined}
 					>
-						<p>So, hello. I'm <b>Alex</b>. I'm a developer and musician. In my free time I love to build stuff with React JS and music-wise I've for many years released and performed '8-bit' music.</p> <p>This site is my portfolio page, where I take the opportunity to showcase my code, music and provide links to my different projects. Not least you can check out my Resumé-page where you can read and download my CV to get a sense of my personal background and skills.</p><p>You are welcome to contact me if you are interested in my profile, regarding collaborations or anything in between.</p><p><b>All the best!</b></p>
+						<p>So, hello. I'm <b>Alex</b>. I'm a developer and musician. In my free time I love to build stuff with React JS and music-wise I've for many years released and performed '8-bit' music.</p> <p>This site is my portfolio page, where I take the opportunity to showcase my code, music and provide links to my different projects. Not least you can check out my <StyledA href="/resume">Resumé-page</StyledA> where you can read and download my CV to get a sense of my personal background and skills.</p><p>You are welcome to contact me if you are interested in my profile, regarding collaborations or anything in between.</p><p><b>All the best!</b></p>
 					</Typography>
 					</div>
                 </TextContainer>

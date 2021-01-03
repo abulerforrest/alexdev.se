@@ -44,11 +44,11 @@ const UnderLine2 = styled.div`
 `;
 
 const Root = styled.div`
-	display: flex;
-	align-items: flex-start;
-	justify-content: space-evenly;
-	padding-left: 200px;
-	margin: 30px 105px 0 0;
+	z-index: 1;
+	position: relative;
+	clip-path: inset( 0 25px -100vh 0 );
+	width: 100vh;
+	margin: 30px 0 0 0;
 	text-transform: uppercase;
 
 	@media ${device.mobileS} {
@@ -319,22 +319,24 @@ const SubMenuItem = styled.li`
 `;
 
 const Nav = styled.ul`
-	display: none;
-	right: 100px;
+	display: flex;
+	visibility: hidden;
 	list-style-type: none;
-	position: absolute;
+	position: relative;
+	right: -130px;
+	top: 10px;
 	color: ${(props) => props.theme.primaryColor};
 
 	@media ${device.desktopL} {
-		right: 77px;
+		right: -230px;
 	}
 
 	@media ${device.desktopS} {
-		right: 47px;
+		right: -310px;
 	}
 
 	@media ${device.desktopXS} {
-		right: 37px;
+		right: -280px;
 	}
 
 	@media ${device.mobileS} {
@@ -352,12 +354,12 @@ const Nav = styled.ul`
 	}
 
 	&.reveal {
-		display: flex;
+		visibility: visible;
 		animation: ${(props) => props.theme.animationReveal};
 	}
 
 	&.collapse {
-		display: flex;
+		visibility: visible;
 		pointer-events: none;
 		animation: ${(props) => props.theme.animationCollapse};
 	}

@@ -32,174 +32,175 @@ const clickmetext = ({ className, children }: HTMLDivElement | any) => (
 );
 
 const Root = styled.div`
-		display: flex;
-		height: 100px;
-		justify-content: flex-end;
-		position: fixed;
-		user-select: none;
-		right: 20px;
-		z-index: 2;
-		color: ${props => props.theme.primaryColor};
-		font-family: ${props => props.theme.primaryFont};
-		width: 0px;
-	`;
+	display: flex;
+	justify-content: flex-end;
+	position: fixed;
+	user-select: none;
+	right: 20px;
+	z-index: 2;
+	color: ${props => props.theme.primaryColor};
+	font-family: ${props => props.theme.primaryFont};
+`;
 
 const ProfilePic = styled(profilepic)`
-		top: 0;
-		right: 0;
-		width: 80px;
-		height: 80px;
-		cursor: pointer;
-		margin-top: 20px;
-		padding-right: 20px;
-		position: absolute;
-		background-size: 80px;
-		background-repeat: no-repeat;
-		background-image: url(${profilePic});
-		animation: ${props => props.theme.animationReveal};
-		animation-delay: 0.2s;
+	display: block;
+	z-index: 6;
+	top: 0;
+	right: 0;
+	width: 60px;
+	height: 80px;
+	cursor: pointer;
+	margin: 20px 10px 0 0;
+	padding-right: 20px;
+	position: absolute;
+	background-size: 80px;
+	background-repeat: no-repeat;
+	background-image: url(${profilePic});
+	animation: ${props => props.theme.animationReveal};
+	animation-delay: 0.2s;
 
-		@media ${device.mobileS} {
-			margin-top: 10px;
-			right: -25px;
-			width: 50px;
-			height: 50px;
-			background-size: 50px;
-		}
+	@media ${device.mobileS} {
+		margin-top: 10px;
+		right: -25px;
+		width: 50px;
+		height: 50px;
+		background-size: 50px;
+	}
 
-		@media ${device.desktopL} {
-			right: -25px;
-		}
+	@media ${device.desktopL} {
+		right: -25px;
+	}
 
-		@media ${device.desktopS} {
-			margin-top: 10px;
-			right: -35px;
-			width: 70px;
-			height: 70px;
-			background-size: 70px;
-		}
+	@media ${device.desktopS} {
+		margin-top: 10px;
+		right: -35px;
+		width: 70px;
+		height: 70px;
+		background-size: 70px;
+	}
 
-		@media ${device.desktopXS} {
-			margin-top: 10px;
-			right: -35px;
-			width: 60px;
-			height: 60px;
-			background-size: 60px;
-		}
-	`;
+	@media ${device.desktopXS} {
+		margin-top: 10px;
+		right: -35px;
+		width: 60px;
+		height: 60px;
+		background-size: 60px;
+	}
+`;
 
 const ClickMeText = styled(clickmetext)`
+	z-index: 2;
+	top: 36px;
+	right: 120px;
+	padding: 18px;
+	font-size: 20px;
+	font-weight: 700;
+	white-space: nowrap;
+	position: absolute;
+	border-radius: 8px;
+	color: ${(props) => props.theme.secondaryColor};
+	background-color: ${(props) => props.theme.primaryColor};
+	animation: ${props => props.theme.animationReveal};
+	animation-delay: 0.4s;
+
+	&:after {
+		top: 50%;
+		right: 0;
+		content: '';
+		margin-top: -10px;
+		position: absolute;
+		border: 20px solid transparent;
+		border-top: 0;
+		border-right: 0;
+		border-left-color: #ffffff;
+		margin-right: -20px;
+	}
+
+	@media ${device.desktopL} {
+		right: 108px;
+	}
+
+	@media ${device.desktopS} {
 		z-index: 2;
-		top: 36px;
-		right: 130px;
-		padding: 18px;
-		font-size: 20px;
+		top: 24px;
+		right: 82px;
+		padding: 12px;
+		font-size: 17px;
 		font-weight: 700;
 		white-space: nowrap;
 		position: absolute;
 		border-radius: 8px;
 		color: ${(props) => props.theme.secondaryColor};
 		background-color: ${(props) => props.theme.primaryColor};
-		animation: ${props => props.theme.animationReveal};
-		animation-delay: 0.4s;
 
 		&:after {
-			top: 50%;
+			top: 87%;
 			right: 0;
 			content: '';
-			margin-top: -10px;
+			margin-top: -20px;
 			position: absolute;
-			border: 20px solid transparent;
+			border: 18px solid transparent;
 			border-top: 0;
 			border-right: 0;
 			border-left-color: #ffffff;
-			margin-right: -20px;
-		}
+			margin-right: -10px;
+	}
 
-		@media ${device.desktopL} {
-			right: 108px;
-		}
+	@media ${device.desktopXS} {
+		z-index: 2;
+		top: 19px;
+		right: 62px;
+		padding: 12px;
+		font-size: 16px;
+		font-weight: 700;
+		white-space: nowrap;
+		position: absolute;
+		border-radius: 8px;
+		color: ${(props) => props.theme.secondaryColor};
+		background-color: ${(props) => props.theme.primaryColor};
 
-		@media ${device.desktopS} {
-			z-index: 2;
-			top: 24px;
-			right: 72px;
-			padding: 12px;
-			font-size: 17px;
-			font-weight: 700;
-			white-space: nowrap;
+		&:after {
+			top: 90%;
+			right: 0;
+			content: '';
+			margin-top: -20px;
 			position: absolute;
-			border-radius: 8px;
-			color: ${(props) => props.theme.secondaryColor};
-			background-color: ${(props) => props.theme.primaryColor};
+			border: 16px solid transparent;
+			border-top: 0;
+			border-right: 0;
+			border-left-color: #ffffff;
+			margin-right: -10px;
+	}
 
-			&:after {
-				top: 87%;
-				right: 0;
-				content: '';
-				margin-top: -20px;
-				position: absolute;
-				border: 18px solid transparent;
-				border-top: 0;
-				border-right: 0;
-				border-left-color: #ffffff;
-				margin-right: -10px;
-		}
+	@media ${device.mobileS} {
+		z-index: 2;
+		top: 16px;
+		right: 62px;
+		padding: 12px;
+		font-size: 16px;
+		font-weight: 700;
+		white-space: nowrap;
+		position: absolute;
+		border-radius: 8px;
+		color: ${(props) => props.theme.secondaryColor};
+		background-color: ${(props) => props.theme.primaryColor};
+		animation: ${(props) => props.theme.animationReveal};
+		animation-delay: 0.4s;
 
-		@media ${device.desktopXS} {
-			z-index: 2;
-			top: 19px;
-			right: 62px;
-			padding: 12px;
-			font-size: 16px;
-			font-weight: 700;
-			white-space: nowrap;
+		&:after {
+			top: 90%;
+			right: 0;
+			content: '';
+			margin-top: -20px;
 			position: absolute;
-			border-radius: 8px;
-			color: ${(props) => props.theme.secondaryColor};
-			background-color: ${(props) => props.theme.primaryColor};
-
-			&:after {
-				top: 90%;
-				right: 0;
-				content: '';
-				margin-top: -20px;
-				position: absolute;
-				border: 16px solid transparent;
-				border-top: 0;
-				border-right: 0;
-				border-left-color: #ffffff;
-				margin-right: -10px;
+			border: 16px solid transparent;
+			border-top: 0;
+			border-right: 0;
+			border-left-color: #ffffff;
+			margin-right: -10px;
 		}
-
-		@media ${device.mobileS} {
-			z-index: 2;
-			top: 16px;
-			right: 62px;
-			padding: 12px;
-			font-size: 16px;
-			font-weight: 700;
-			white-space: nowrap;
-			position: absolute;
-			border-radius: 8px;
-			color: ${(props) => props.theme.secondaryColor};
-			background-color: ${(props) => props.theme.primaryColor};
-			animation: ${(props) => props.theme.animationReveal};
-			animation-delay: 0.4s;
-
-			&:after {
-				top: 90%;
-				right: 0;
-				content: '';
-				margin-top: -20px;
-				position: absolute;
-				border: 16px solid transparent;
-				border-top: 0;
-				border-right: 0;
-				border-left-color: #ffffff;
-				margin-right: -10px;
-		}
-	`;
+	}
+`;
 
 const Top = () => {
 
