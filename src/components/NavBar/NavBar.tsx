@@ -46,9 +46,10 @@ const UnderLine2 = styled.div`
 const Root = styled.div`
 	z-index: 1;
 	position: relative;
-	clip-path: inset( 0 25px -100vh 0 );
-	width: 100vh;
-	margin: 30px 0 0 0;
+	clip-path: inset(0 25px -100vh -100vh);
+	width: 100%;
+	margin: 21px 0 0 0;
+	border: 1px solid transparent;
 	text-transform: uppercase;
 
 	@media ${device.mobileS} {
@@ -323,20 +324,19 @@ const Nav = styled.ul`
 	visibility: hidden;
 	list-style-type: none;
 	position: relative;
-	right: -60px;
-	top: 10px;
+	right: 70px;
 	color: ${(props) => props.theme.primaryColor};
 
 	@media ${device.desktopL} {
-		right: -160px;
+		right: 65px;
 	}
 
 	@media ${device.desktopS} {
-		right: -220px;
+		right: 60px;
 	}
 
 	@media ${device.desktopXS} {
-		right: -275px;
+		right: 50px;
 	}
 
 	@media ${device.mobileS} {
