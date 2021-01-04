@@ -21,7 +21,7 @@ ui-debug.log
 # production
 /build
 package-lock.json
-
+public/assets/fonts
 # misc
 .idea
 .DS_Store
