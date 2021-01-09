@@ -1,32 +1,39 @@
-interface IExternalFonts {
+import SourceCodeProExtraLight from "../../../assets/fonts/SourceCodePro-ExtraLight.ttf"
+import MontserratBold from "../../../assets/fonts/Montserrat-Bold.ttf"
+import RobotoRegular from "../../../assets/fonts/Roboto-Regular.ttf"
+import RobotoItalic from "../../../assets/fonts/Roboto-Italic.ttf"
+import RobotoBold from "../../../assets/fonts/Roboto-Bold.ttf"
+import NunitoExtraBold from "../../../assets/fonts/NunitoSans-ExtraBold.ttf"
+
+interface IFonts {
     family: string
     src: string
 }
 
-const externalFonts: IExternalFonts[] = [
+const externalFonts: IFonts[] = [
     {
         family: "SourceCodeProLight",
-        src: "assets/fonts/SourceCodePro-ExtraLight.ttf"
+        src: SourceCodeProExtraLight
     },
     {
         family: "Montserrat",
-        src: "assets/fonts/Montserrat-Bold.ttf"
+        src: MontserratBold
     },
     {
-        family: "ArialBold",
-        src: "assets/fonts/Arial-Bold.ttf"
+        family: "Roboto",
+        src: RobotoRegular
     },
     {
-        family: "ArialItalic",
-        src: "assets/fonts/Arial-Italic.ttf"
+        family: "RobotoItalic",
+        src: RobotoItalic
     },
     {
-        family: "Arial",
-        src: "assets/fonts/Arial.ttf"
+        family: "RobotoBold",
+        src: RobotoBold
     },
     {
         family: "Nunito",
-        src: "assets/fonts/NunitoSans-ExtraBold.ttf"
+        src: NunitoExtraBold
     }
 ]
 

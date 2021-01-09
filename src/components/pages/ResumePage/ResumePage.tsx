@@ -1493,7 +1493,7 @@ const renderResume = (controller: IResumePageController) => {
 								EMAIL
 							</ContactInfoHeading>
 							<ContactInfoBread>
-								alexander@buler-forrest.se
+								alex@alexdev.se
 							</ContactInfoBread>
 						</ContactInfoWrapper>
 					</ContactInfoRow>

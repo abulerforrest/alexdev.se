@@ -13,6 +13,7 @@ export interface IPDFStore {
 export const PDFStore = () => {
     const { pdfService } = createServices();
 
+
     const store: IPDFStore = {
         pdfBlob: observable.box(new Blob()),
         loadPDFBlob: action(async (): Promise<void> => {

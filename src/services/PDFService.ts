@@ -4,7 +4,7 @@ import ResumePDF from "../components/ResumePDF";
 
 import {
     IPDFService
-} from "../interfaces/services/PDFService";
+} from "../interfaces/services";
 
 export const PDFService = () => {
     const service: IPDFService = {

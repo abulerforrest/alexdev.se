@@ -1,8 +1,8 @@
 import {
     IDataService
-} from "../interfaces/services/DataService";
+} from "../interfaces/services";
 
-import { IMenuItems } from "../interfaces/MenuItems";
+import { IMenuItems } from "../interfaces/MenuItems";
 
 import {
     menuItems

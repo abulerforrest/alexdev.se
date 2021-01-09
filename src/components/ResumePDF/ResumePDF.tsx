@@ -52,14 +52,16 @@ const styles = StyleSheet.create({
 });
 
 // load external fonts
-externalFonts.map(font => (
-	Font.register(
-		{
-			family: font.family,
-			src: font.src
-		}
+externalFonts.map(font => {
+	return (
+		Font.register(
+			{
+				family: font.family,
+				src: font.src
+			}
+		)
 	)
-));
+});
 
 const ResumeContainer = styled.Page`
     display: flex;
@@ -119,7 +121,7 @@ const MainContent = styled.View`
 const TextBlob = styled.Text`
 	color: #4a4a4a;
     font-size: 8.5px;
-    font-family: Arial;
+    font-family: Roboto;
     line-height: 1.8px;
 `;
 
@@ -137,7 +139,7 @@ const ContinuedWrapper = styled.Text`
     color: #585858;
     font-size: 11px;
     margin-top: -15px;
-    font-family: "Arial";
+    font-family: "Roboto";
 `;
 
 const ContinuedText = styled.Text`
@@ -173,7 +175,7 @@ const TitleBox = styled.View`
 const TitleBoxText = styled.Text`
 	color: #4a4a4a;
 	font-size: 10px;
-    font-family: Arial;
+    font-family: Roboto;
     letter-spacing: 3px;
 	text-transform: uppercase;
 `;
@@ -249,7 +251,7 @@ const ContactInfoHeading = styled.Text`
 	color: #494949;
 	font-size: 10px;
     margin-bottom: 5px;
-	font-family: "ArialBold";
+	font-family: "RobotoBold";
     text-transform: uppercase;
 `;
 
@@ -258,7 +260,7 @@ const ContactInfoBread = styled.Text`
     flex-direction: column;
     color: #646464;
 	font-size: 9px;
-	font-family: "Arial";
+	font-family: "Roboto";
 `;
 
 const EducationRow = styled.View`
@@ -274,7 +276,7 @@ const EducationLabel = styled.Text`
 	color: #494949;
 	font-size: 10px;
 	margin-bottom: 10px;
-    font-family: "ArialBold";
+    font-family: "RobotoBold";
     text-transform: uppercase;
 `;
 
@@ -289,7 +291,7 @@ const EducationDescription = styled.Text`
 	width: 150px;
 	color: #898989;
 	font-size: 9px;
-    font-family: "ArialItalic";
+    font-family: "RobotoItalic";
 `;
 
 const SkillsWrapper = styled.View`
@@ -302,7 +304,7 @@ const SkillsLabel = styled.Text`
 	color: #6b6b6b;
 	display: block;
 	font-size: 9px;
-	font-family: "Arial";
+	font-family: "Roboto";
     text-transform: uppercase;
 `;
 
@@ -348,7 +350,8 @@ const PositionHeading = styled.Text`
 	color: #585858;
 	font-size: 10px;
 	margin-right: auto;
-	font-family: "ArialBold";
+	letter-spacing: 0.6pt;
+	font-family: "RobotoBold";
 	text-transform: uppercase;
 	border-bottom: 1px solid #000;
 `;
@@ -369,7 +372,7 @@ const PositionDateExtension = styled.Text`
     color: #4a4a4a;
 	position: relative;
 	white-space: nowrap;
-    font-family: "Arial";
+    font-family: "Roboto";
     margin: 5px 0 0 auto;
 	text-transform: uppercase;
 `;
@@ -397,7 +400,7 @@ const PositionQuickInfo = styled.Text`
     margin-top: -5px;
 	font-size: 9.5px;
 	margin-bottom: 10px;
-    font-family: "ArialItalic";
+    font-family: "RobotoItalic";
 `;
 
 const ExpertiseRow = styled.View`
@@ -409,12 +412,12 @@ const ExpertiseRow = styled.View`
 const ExpertiseLabel = styled.Text`
 	color: #585858;
     font-size: 9px;
-	font-family: "Arial";
+	font-family: "Roboto";
 `;
 
 const EducationDescriptionExtra = styled.Text`
 	font-size: 10px;
-	font-family: "ArialItalic";
+	font-family: "RobotoItalic";
 `;
 
 const Reference = styled.View`
@@ -433,7 +436,7 @@ const ReferenceName = styled.Text`
 	color: #4a4a4a;
 	font-size: 12px;
 	margin-bottom: 1px;
-	font-family: ArialBold;
+	font-family: RobotoBold;
 	text-transform: uppercase;
 `;
 
@@ -446,7 +449,7 @@ const ReferenceContactInfo = styled.Text`
 	color: #8c8b8b;
 	font-size: 10px;
 	margin-top: 15px;
-	font-family: ArialItalic;
+	font-family: RobotoItalic;
 `;
 
 const SeperatorVertical = styled.View`
@@ -459,13 +462,13 @@ const ReferenceTitleText = styled.Text`
 	color: #4a4a4a;
 	font-size: 10px;
 	margin-bottom: 2px;
-	font-family: "Arial";
+	font-family: "Roboto";
 `;
 
 const ReferenceCompanyText = styled.Text`
     color: #4a4a4a;
     font-size: 10px;
-	font-family: "ArialBold";
+	font-family: "RobotoBold";
 `;
 
 const FollowMeWrapper = styled.View`
@@ -485,7 +488,7 @@ const FollowMeLink = styled.Text`
 	color: #707070;
 	font-size: 8px;
 	margin-left: 15px;
-	font-family: "Arial";
+	font-family: "Roboto";
 	text-transform: lowercase;
 `;
 
@@ -501,7 +504,7 @@ const InterestIconText = styled.Text`
 	color: #b6b6b6;
 	font-size: 8px;
 	margin-top: 9.5px;
-	font-family: "ArialBold";
+	font-family: "RobotoBold";
     text-transform: uppercase;
 `;
 
@@ -750,7 +753,7 @@ const ResumePDF = (
                     </IconWrapper>
                     <ContactInfoWrapper>
                         <ContactInfoHeading>Email</ContactInfoHeading>
-                        <ContactInfoBread>alexander@buler-forrest.se</ContactInfoBread>
+                        <ContactInfoBread>alex@alexdev.se</ContactInfoBread>
                     </ContactInfoWrapper>
                 </ContactInfoRow>
                 <SeperatorSmall />
